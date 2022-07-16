@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class TypePerson
+ * Class TypePeople
  *
  * @property $id
  * @property $name
  * @property $created_at
  * @property $updated_at
  *
- * @property Person[] $persons
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class TypePerson extends Model
+class TypePeople extends Model
 {
-    
+    public $table = 'type_peoples';
     static $rules = [
 		'name' => 'required',
     ];
@@ -33,13 +32,5 @@ class TypePerson extends Model
     protected $fillable = ['name'];
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function persons()
-    {
-        return $this->hasMany('App\Models\Person', 'type_person_id', 'id');
-    }
-    
 
 }

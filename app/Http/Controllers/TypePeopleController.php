@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TypePerson;
+use App\Models\TypePeople;
 use Illuminate\Http\Request;
 
 /**
- * Class TypePersonController
+ * Class TypePeopleController
  * @package App\Http\Controllers
  */
-class TypePersonController extends Controller
+class TypePeopleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,10 @@ class TypePersonController extends Controller
      */
     public function index()
     {
-        $typePeople = TypePerson::paginate();
+        $typePeoples = TypePeople::paginate();
 
-        return view('type-person.index', compact('typePeople'))
-            ->with('i', (request()->input('page', 1) - 1) * $typePeople->perPage());
+        return view('type-people.index', compact('typePeoples'))
+            ->with('i', (request()->input('page', 1) - 1) * $typePeoples->perPage());
     }
 
     /**
@@ -31,8 +31,8 @@ class TypePersonController extends Controller
      */
     public function create()
     {
-        $typePerson = new TypePerson();
-        return view('type-person.create', compact('typePerson'));
+        $typePeople = new TypePeople();
+        return view('type-people.create', compact('typePeople'));
     }
 
     /**
@@ -43,12 +43,12 @@ class TypePersonController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(TypePerson::$rules);
+        request()->validate(TypePeople::$rules);
 
-        $typePerson = TypePerson::create($request->all());
+        $typePeople = TypePeople::create($request->all());
 
         return redirect()->route('type-people.index')
-            ->with('success', 'TypePerson created successfully.');
+            ->with('success', 'TypePeople created successfully.');
     }
 
     /**
@@ -59,9 +59,9 @@ class TypePersonController extends Controller
      */
     public function show($id)
     {
-        $typePerson = TypePerson::find($id);
+        $typePeople = TypePeople::find($id);
 
-        return view('type-person.show', compact('typePerson'));
+        return view('type-people.show', compact('typePeople'));
     }
 
     /**
@@ -72,26 +72,26 @@ class TypePersonController extends Controller
      */
     public function edit($id)
     {
-        $typePerson = TypePerson::find($id);
+        $typePeople = TypePeople::find($id);
 
-        return view('type-person.edit', compact('typePerson'));
+        return view('type-people.edit', compact('typePeople'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  TypePerson $typePerson
+     * @param  TypePeople $typePeople
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TypePerson $typePerson)
+    public function update(Request $request, TypePeople $typePeople)
     {
-        request()->validate(TypePerson::$rules);
+        request()->validate(TypePeople::$rules);
 
-        $typePerson->update($request->all());
+        $typePeople->update($request->all());
 
-        return redirect()->route('type-people.index')
-            ->with('success', 'TypePerson updated successfully');
+        return redirect()->route('type-peoples.index')
+            ->with('success', 'TypePeople updated successfully');
     }
 
     /**
@@ -101,9 +101,9 @@ class TypePersonController extends Controller
      */
     public function destroy($id)
     {
-        $typePerson = TypePerson::find($id)->delete();
+        $typePeople = TypePeople::find($id)->delete();
 
         return redirect()->route('type-people.index')
-            ->with('success', 'TypePerson deleted successfully');
+            ->with('success', 'TypePeople deleted successfully');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $typePerson->name ?? 'Show Type Person' }}
+    {{ $typePeople->name ?? 'Show Type People' }}
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Type Person</span>
+                            <span class="card-title">Show Type People</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary" href="{{ route('type-people.index') }}"> Back</a>
@@ -22,7 +22,7 @@
                         
                         <div class="form-group">
                             <strong>Name:</strong>
-                            {{ $typePerson->name }}
+                            {{ $typePeople->name }}
                         </div>
 
                     </div>
