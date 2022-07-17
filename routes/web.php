@@ -19,7 +19,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('type-people', App\Http\Controllers\TypePeopleController::class);
+Route::resource('type-people', App\Http\Controllers\TypePeopleController::class)->middleware('auth');
+
+Route::resource('people', App\Http\Controllers\PeopleController::class)->middleware('auth');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

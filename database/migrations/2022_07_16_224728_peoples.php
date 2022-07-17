@@ -18,9 +18,9 @@ class Peoples extends Migration
             $table->bigIncrements('id');
             $table->string('first_name', 50);
             $table->string('last_name', 50);
-            $table->string('email',50);
-            $table->string('phone',12);
-            $table->boolean('active')->default(true);
+            $table->string('email',50)->nullable();
+            $table->string('phone',12)->nullable();
+            $table->boolean('active')->nullable()->default(true);
             $table->timestamps();
             $table->bigInteger('type_people_id')->unsigned();
 
