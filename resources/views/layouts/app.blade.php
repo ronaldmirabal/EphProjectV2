@@ -35,11 +35,15 @@
                     @if (Auth::check())
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                        <a class="nav-link" href="{{ route('type-people.index') }}">{{ __('Tipos de Personas') }}</a>
+                            <a class="nav-link" href="{{ route('type-people.index') }}">{{ __('Tipos de Personas') }}</a>
                         </li>
 
                         <li class="nav-item">
-                        <a class="nav-link" href="{{ route('people.index') }}">{{ __('Personas') }}</a>
+                            <a class="nav-link" href="{{ route('people.index') }}">{{ __('Personas') }}</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('areas.index') }}">{{ __('Areas') }}</a>
                         </li>
                     </ul>
                     @endif
