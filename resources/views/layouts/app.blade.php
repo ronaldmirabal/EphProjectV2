@@ -43,7 +43,15 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('brands.index') }}">{{ __('Marcas') }}</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('areas.index') }}">{{ __('Areas') }}</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('type-products.index') }}">{{ __('Tipo de Productos') }}</a>
                         </li>
                     </ul>
                     @endif

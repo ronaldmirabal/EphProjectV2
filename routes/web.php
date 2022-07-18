@@ -23,6 +23,7 @@ Route::resource('type-people', App\Http\Controllers\TypePeopleController::class)
 
 Route::resource('people', App\Http\Controllers\PeopleController::class)->middleware('auth');
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
-
+Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
+Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
