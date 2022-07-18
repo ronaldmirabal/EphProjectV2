@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Update People
+@section('title')
+    Actualizar Persona
 @endsection
 
 @section('content')

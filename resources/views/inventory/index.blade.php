@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Inventory
+@section('title')
+    Inventario
 @endsection
 
 @section('content')
@@ -13,13 +13,20 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Inventory') }}
+                                {{ __('Inventario') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('inventories.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                    {{ __('Crear Nuevo') }}
+                                  </a>
+                                <a href="{{ route('inventories.create') }}" class="btn btn-danger btn-sm float-right"  data-placement="left">
+                                    <i class="fa-solid fa-file-pdf"></i>
                                 </a>
+                                <a href="{{ route('inventories.create') }}" class="btn btn-success btn-sm float-right"  data-placement="left">
+                                    <i class="fa-solid fa-file-csv"></i>
+                                </a>
+                               
                               </div>
                         </div>
                     </div>
@@ -36,18 +43,18 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Stock</th>
+										<th>Cantidad</th>
 										<th>Model</th>
 										<th>Serial</th>
-										<th>Description</th>
+										<th>Descripcion</th>
 										<th>Noplaca</th>
 										<th>Color</th>
-										<th>Size</th>
-										<th>Active</th>
-										<th>People Id</th>
-										<th>Brand Id</th>
-										<th>Area Id</th>
-										<th>Type Product Id</th>
+										<th>Tamaño</th>
+										<th>Activo</th>
+										<th>Asignada</th>
+										<th>Marca</th>
+										<th>Area</th>
+										<th>Tipo</th>
 
                                         <th></th>
                                     </tr>

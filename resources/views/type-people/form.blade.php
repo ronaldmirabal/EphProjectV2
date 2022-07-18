@@ -3,13 +3,14 @@
 
 
         <div class="form-group">
-            {{ Form::label('name') }}
-            {{ Form::text('name', $typePeople->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Name']) }}
+            {{ Form::label('Nombre') }}
+            {{ Form::text('name', $typePeople->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
             {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
     </div>
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <br/>
+        <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </div>

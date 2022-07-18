@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Create Brand
+@section('title')
+    Crear Nueva Marca
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Create Brand</span>
+                        <span class="card-title">Crear Nueva Marca</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('brands.store') }}"  role="form" enctype="multipart/form-data">

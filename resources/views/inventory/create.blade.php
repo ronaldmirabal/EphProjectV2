@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Create Inventory
+@section('title')
+    Crear Nuevo Inventario
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Create Inventory</span>
+                        <span class="card-title">Crear Nuevo Inventario</span>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('inventories.store') }}"  role="form" enctype="multipart/form-data">
@@ -28,3 +28,4 @@
         </div>
     </section>
 @endsection
+

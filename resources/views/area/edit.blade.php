@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Update Area
+@section('title')
+    Actualizar Area
 @endsection
 
 @section('content')

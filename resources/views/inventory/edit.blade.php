@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Update Inventory
+@section('title')
+    Actualizar Inventario
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Create Type Product
+@section('title')
+Crear Nuevo Tipo de Producto
 @endsection
 
 @section('content')

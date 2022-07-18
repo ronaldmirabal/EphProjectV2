@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    People
+@section('title')
+    Personas
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
 										<th>Nombre Completo</th>
 										<th>Email</th>
 										<th>Telefono</th>
-										<th>Type People Id</th>
+										<th>Tipo</th>
 
                                         <th></th>
                                     </tr>

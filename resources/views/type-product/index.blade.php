@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Type Product
+@section('title')
+    Tipo de Productos
 @endsection
 
 @section('content')
@@ -50,7 +50,6 @@
 
                                             <td>
                                                 <form action="{{ route('type-products.destroy',$typeProduct->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('type-products.show',$typeProduct->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('type-products.edit',$typeProduct->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')

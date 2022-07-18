@@ -45,6 +45,33 @@ class InventoryController extends Controller
         return view('inventory.create', compact('inventory', 'peoples','areas','brands','typeproducts'));
     }
 
+
+    public function autocompletePeople(Request $request)
+    {
+        return People::select('id','first_name')
+        ->where('first_name', 'like', "%{$request->term}%")
+        ->pluck('first_name');
+    }
+
+    public function getAutocomplete(Request $request){
+
+        $search = $request->search;
+  
+        if($search == ''){
+           $autocomplate = People::orderby('first_name','asc')->select('id','first_name')->limit(5)->get();
+        }else{
+           $autocomplate = People::orderby('first_name','asc')->select('id','first_name')->where('first_name', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+  
+        $response = array();
+        foreach($autocomplate as $autocomplate){
+           $response[] = array("value"=>$autocomplate->id,"label"=>$autocomplate->first_name);
+        }
+  
+        echo json_encode($response);
+        exit;
+     }
+
     /**
      * Store a newly created resource in storage.
      *

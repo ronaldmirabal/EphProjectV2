@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Type People
+@section('title')
+    Tipo de Personas
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Type People') }}
+                                {{ __('Tipo de Personas') }}
                             </span>
 
                              <div class="float-right">
@@ -50,7 +50,6 @@
 
                                             <td>
                                                 <form action="{{ route('type-people.destroy',$typePeople->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('type-people.show',$typePeople->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('type-people.edit',$typePeople->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     

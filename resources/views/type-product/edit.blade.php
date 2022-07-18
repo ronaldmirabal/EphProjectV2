@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Update Type Product
+@section('title')
+Actualizar Tipo de Producto
 @endsection
 
 @section('content')

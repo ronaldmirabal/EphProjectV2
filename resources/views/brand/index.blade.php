@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Brand
+@section('title')
+    Marcas
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Brand') }}
+                                {{ __('Marcas') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('brands.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear Nueva') }}
                                 </a>
                               </div>
                         </div>
@@ -36,7 +36,7 @@
                                     <tr>
                                         <th>No</th>
                                         
-										<th>Name</th>
+										<th>Marca</th>
 
                                         <th></th>
                                     </tr>
@@ -50,7 +50,6 @@
 
                                             <td>
                                                 <form action="{{ route('brands.destroy',$brand->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('brands.show',$brand->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('brands.edit',$brand->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
@@ -27,4 +28,7 @@ Route::resource('brands', App\Http\Controllers\BrandController::class)->middlewa
 Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
 Route::resource('inventories', App\Http\Controllers\InventoryController::class)->middleware('auth');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('autocompletePeople', [App\Http\Controllers\InventoryController::class, 'autocompletePeople'])->name('autocompletePeople');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+
