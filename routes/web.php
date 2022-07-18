@@ -25,5 +25,6 @@ Route::resource('people', App\Http\Controllers\PeopleController::class)->middlew
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
 Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
+Route::resource('inventories', App\Http\Controllers\InventoryController::class)->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

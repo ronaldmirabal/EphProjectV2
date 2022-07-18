@@ -53,6 +53,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('type-products.index') }}">{{ __('Tipo de Productos') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('inventories.index') }}">{{ __('Inventario') }}</a>
+                        </li>
                     </ul>
                     @endif
                     <!-- Right Side Of Navbar -->
