@@ -32,3 +32,10 @@ Route::get('autocompletePeople', [App\Http\Controllers\InventoryController::clas
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
+Route::get('export', [App\Http\Controllers\InventoryController::class, 'export'])->name('export');
+
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+});

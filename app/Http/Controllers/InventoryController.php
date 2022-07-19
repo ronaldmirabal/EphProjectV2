@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InventoryExport;
 use App\Models\Inventory;
 use App\Models\People;
 use App\Models\Brand;
@@ -9,6 +10,7 @@ use App\Models\Area;
 use App\Models\TypeProduct;
 use Illuminate\Http\Request;
 use Peoples;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class InventoryController
@@ -45,6 +47,15 @@ class InventoryController extends Controller
         return view('inventory.create', compact('inventory', 'peoples','areas','brands','typeproducts'));
     }
 
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export() 
+    {
+        return Excel::download(new InventoryExport, 'inventario.xlsx');
+    }
 
     public function autocompletePeople(Request $request)
     {

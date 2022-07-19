@@ -45,6 +45,20 @@ class Inventory extends Model
      */
     protected $fillable = ['stock','model','serial','description','noplaca','color','size','active','people_id','brand_id','area_id','type_product_id'];
 
-
-
+    public function brand()
+    {
+      return $this->hasOne('App\Models\Brand', 'id','brand_id');
+    }
+    public function area()
+    {
+      return $this->hasOne('App\Models\Area', 'id','area_id');
+    }
+    public function people()
+    {
+      return $this->hasOne('App\Models\People', 'id','people_id');
+    }
+    public function typeproduct()
+    {
+      return $this->hasOne('App\Models\TypeProduct', 'id','type_product_id');
+    }
 }

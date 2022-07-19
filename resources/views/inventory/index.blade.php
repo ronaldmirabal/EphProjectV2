@@ -23,7 +23,7 @@
                                 <a href="{{ route('inventories.create') }}" class="btn btn-danger btn-sm float-right"  data-placement="left">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </a>
-                                <a href="{{ route('inventories.create') }}" class="btn btn-success btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('export') }}" class="btn btn-success btn-sm float-right"  data-placement="left">
                                     <i class="fa-solid fa-file-csv"></i>
                                 </a>
                                
@@ -44,17 +44,16 @@
                                         <th>No</th>
                                         
 										<th>Cantidad</th>
+                                        <th>Tipo</th>
 										<th>Model</th>
 										<th>Serial</th>
 										<th>Descripcion</th>
 										<th>Noplaca</th>
-										<th>Color</th>
-										<th>Tamaño</th>
 										<th>Activo</th>
 										<th>Asignada</th>
 										<th>Marca</th>
 										<th>Area</th>
-										<th>Tipo</th>
+										
 
                                         <th></th>
                                     </tr>
@@ -65,17 +64,16 @@
                                             <td>{{ ++$i }}</td>
                                             
 											<td>{{ $inventory->stock }}</td>
+                                            <td>{{ $inventory->typeproduct->name }}</td>
 											<td>{{ $inventory->model }}</td>
 											<td>{{ $inventory->serial }}</td>
 											<td>{{ $inventory->description }}</td>
 											<td>{{ $inventory->noplaca }}</td>
-											<td>{{ $inventory->color }}</td>
-											<td>{{ $inventory->size }}</td>
 											<td>{{ $inventory->active }}</td>
-											<td>{{ $inventory->people_id }}</td>
-											<td>{{ $inventory->brand_id }}</td>
-											<td>{{ $inventory->area_id }}</td>
-											<td>{{ $inventory->type_product_id }}</td>
+											<td>{{ $inventory->people->first_name. " ".$inventory->people->last_name}}</td>
+											<td>{{ $inventory->brand->name }}</td>
+											<td>{{ $inventory->area->name}}</td>
+											
 
                                             <td>
                                                 <form action="{{ route('inventories.destroy',$inventory->id) }}" method="POST">
