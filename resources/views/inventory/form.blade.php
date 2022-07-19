@@ -3,10 +3,15 @@
         
     
             <div classs="form-group">
-                <input type="text" name="search" placeholder="Search" class="typeahead form-control" />
-                <input type="hidden" id="people_id" name="people_id" value="">
+                <label>Asignar Persona</label>
+                <input class="typeahead form-control" id="autocompletePeople" type="text" placeholder="Asignar a una Persona">
+                
             </div>
-
+            <div class="form-group">
+                {{ Form::label('people_id') }}
+                {{ Form::hidden('people_id', $inventory->model, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
+                {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
+            </div>
         
 
         <div class="form-group">
@@ -74,17 +79,28 @@
 
 
   <script>
-    var path = "{{ route('autocompletePeople')  }}";
-    $('input.typeahead').typeahead({
-        source:  function (query, process) {
-        return $.get(path, { term: query }, function (data) {
-                return process(data);
-            });
-        }
-    });
-    $('input.typeahead').bind('typeahead:select', function(ev, suggestion) {
-            $('#people_id').val(suggestion.id);
+    $('#autocompletePeople').autocomplete({
+    source: function(request, response){
+        $.ajax({
+            url: "{{ route('autocompletePeople') }}",
+            datatype: 'json',
+            data: {
+                term: request.term
+            },
+            success: function(data){
+                response(data)
+            }
         });
+    },
+    // Ejecutar cuando se seleccione un cliente
+    
+    select: function (event, ui) {
+          // Set selection
+          $('#autocompletePeople').val(ui.item.label); // display the selected text
+          $('#people_id').val(ui.item.value); // save selected id to input
+          return false;
+        }
+});
   </script>
 
 

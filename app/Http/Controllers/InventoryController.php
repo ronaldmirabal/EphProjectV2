@@ -48,9 +48,23 @@ class InventoryController extends Controller
 
     public function autocompletePeople(Request $request)
     {
-        return People::select('id','first_name')
-        ->where('first_name', 'like', "%{$request->term}%")
-        ->pluck('first_name');
+        //return People::select('id','first_name')
+        //->where('first_name', 'like', "%{$request->term}%")
+       // ->pluck('first_name');
+       $term = $request->get('term');
+
+       $querys = People::where('first_name', 'LIKE', '%' . $term . '%')->get();
+   
+       $data = [];
+   
+       foreach ($querys as $querys) {
+           $data[] = [
+               'label' => $querys->first_name,
+               'value' => $querys->id
+           ];
+       }
+   
+       return $data;
     }
 
     public function getAutocomplete(Request $request){
