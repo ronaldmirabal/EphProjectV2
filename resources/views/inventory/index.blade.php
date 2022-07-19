@@ -17,13 +17,13 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('inventories.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('inventories.create') }}" class="btn btn-primary btn-sm " >
                                     {{ __('Crear Nuevo') }}
                                   </a>
-                                <a href="{{ route('inventories.create') }}" class="btn btn-danger btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('inventories.create') }}" class="btn btn-danger btn-sm ">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </a>
-                                <a href="{{ route('export') }}" class="btn btn-success btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('export') }}" class="btn btn-success btn-sm ">
                                     <i class="fa-solid fa-file-csv"></i>
                                 </a>
                                
