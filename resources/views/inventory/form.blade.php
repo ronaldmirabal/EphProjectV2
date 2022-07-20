@@ -7,6 +7,7 @@
                 <input class="typeahead form-control" id="autocompletePeople" type="text" placeholder="Asignar a una Persona">
                 
             </div>
+        </br>
             <div class="form-group">
                 {{ Form::label('people_id') }}
                 {{ Form::hidden('people_id', $inventory->model, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
