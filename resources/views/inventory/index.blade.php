@@ -69,7 +69,11 @@
 											<td>{{ $inventory->serial }}</td>
 											<td>{{ $inventory->description }}</td>
 											<td>{{ $inventory->noplaca }}</td>
-											<td>{{ $inventory->active }}</td>
+                                            @if($inventory->active == 1)
+											<td>Si</td>
+                                            @else
+                                            <td>No</td>
+                                            @endif
 											<td>{{ $inventory->people->first_name. " ".$inventory->people->last_name}}</td>
 											<td>{{ $inventory->brand->name }}</td>
 											<td>{{ $inventory->area->name}}</td>

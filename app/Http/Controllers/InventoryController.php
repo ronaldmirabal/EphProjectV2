@@ -110,7 +110,7 @@ class InventoryController extends Controller
         $inventory = Inventory::create($request->all());
 
         return redirect()->route('inventories.index')
-            ->with('success', 'Inventory created successfully.');
+            ->with('success', 'El registro del inventario fue creado');
     }
 
     /**
@@ -153,7 +153,7 @@ class InventoryController extends Controller
         $inventory->update($request->all());
 
         return redirect()->route('inventories.index')
-            ->with('success', 'Inventory updated successfully');
+            ->with('success', 'El registro del inventario fue actualizado');
     }
 
     /**
@@ -163,9 +163,12 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        $inventory = Inventory::find($id)->delete();
-
+        $inventory = Inventory::find($id);
+        if($inventory){
+            $inventory->active = 0;
+            $inventory->save();
+        }
         return redirect()->route('inventories.index')
-            ->with('success', 'Inventory deleted successfully');
+            ->with('success', 'El registro del inventario fue desactivado');
     }
 }
