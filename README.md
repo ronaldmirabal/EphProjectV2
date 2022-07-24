@@ -8,14 +8,17 @@
 </p>
 
 ## Installation
+```sh
 git clone https://github.com/ronaldmirabal/EphProjectV2.git
-
+```
 ## Install dependencies:
+```sh
 composer install
-
+```
 ## Configure your database and run command:
+```sh
 php artisan migrate --seed
-
+```
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
