@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-$host = $url["us-cdbr-east-06.cleardb.net"] ?? null;
-$username = $url["bceed059ed7ff8"] ?? null;
-$password = $url["43098ef7"] ?? null;
-$database = substr($url["path"], 1);
+$DATABASE_URL=parse_url('mysql://bceed059ed7ff8:43098ef7@us-cdbr-east-06.cleardb.net/heroku_6a8e3704236108e?reconnect=true');
 
 return [
 
@@ -50,21 +46,25 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => $host,
-            'port' => env('DB_PORT', '3306'),
-            'database' => $database,
-            'username' => $username,
-            'password' => $password,
+            'url' => env('DATABASE_URL'),
+            'host' =>     isset($DATABASE_URL['host']) ? $DATABASE_URL['host'] : null,
+            'port' =>     isset($DATABASE_URL['port']) ? $DATABASE_URL['port'] : null,
+            'database' => isset($DATABASE_URL['path']) ? ltrim( $DATABASE_URL['path'], "/") : null,
+            'username' => isset($DATABASE_URL['user']) ? $DATABASE_URL['user'] : null,
+            'password' => isset($DATABASE_URL['pass']) ? $DATABASE_URL['pass'] : null,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+
+    
 
         'pgsql' => [
             'driver' => 'pgsql',
