@@ -135,8 +135,12 @@ class InventoryController extends Controller
     public function edit($id)
     {
         $inventory = Inventory::find($id);
+        $peoples = People::pluck('first_name', 'id');
+        $areas = Area::pluck('name', 'id');
+        $brands = Brand::pluck('name', 'id');
+        $typeproducts = TypeProduct::pluck('name', 'id');
 
-        return view('inventory.edit', compact('inventory'));
+        return view('inventory.edit', compact('inventory','peoples','areas','brands','typeproducts'));
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    {{ $inventory->name ?? 'Show Inventory' }}
+@section('title')
+    Detalle de Inventario
 @endsection
 
 @section('content')
@@ -11,21 +11,21 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-left">
-                            <span class="card-title">Show Inventory</span>
+                            <span class="card-title">Detalle de Inventario</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('inventories.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('inventories.index') }}"> Regresar</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Stock:</strong>
+                            <strong>Cantidad:</strong>
                             {{ $inventory->stock }}
                         </div>
                         <div class="form-group">
-                            <strong>Model:</strong>
+                            <strong>Modelo:</strong>
                             {{ $inventory->model }}
                         </div>
                         <div class="form-group">
@@ -33,7 +33,7 @@
                             {{ $inventory->serial }}
                         </div>
                         <div class="form-group">
-                            <strong>Description:</strong>
+                            <strong>Descripción:</strong>
                             {{ $inventory->description }}
                         </div>
                         <div class="form-group">
@@ -45,7 +45,7 @@
                             {{ $inventory->color }}
                         </div>
                         <div class="form-group">
-                            <strong>Size:</strong>
+                            <strong>Tamaño:</strong>
                             {{ $inventory->size }}
                         </div>
                         <div class="form-group">
@@ -53,20 +53,20 @@
                             {{ $inventory->active }}
                         </div>
                         <div class="form-group">
-                            <strong>People Id:</strong>
-                            {{ $inventory->people_id }}
+                            <strong>Persona Asignada:</strong>
+                            {{ $inventory->people->first_name. " ".$inventory->people->last_name }}
                         </div>
                         <div class="form-group">
-                            <strong>Brand Id:</strong>
-                            {{ $inventory->brand_id }}
+                            <strong>Marca:</strong>
+                            {{ $inventory->brand->name }}
                         </div>
                         <div class="form-group">
-                            <strong>Area Id:</strong>
-                            {{ $inventory->area_id }}
+                            <strong>Area:</strong>
+                            {{ $inventory->area->name }}
                         </div>
                         <div class="form-group">
-                            <strong>Type Product Id:</strong>
-                            {{ $inventory->type_product_id }}
+                            <strong>Tipo de Producto:</strong>
+                            {{ $inventory->typeproduct->name }}
                         </div>
 
                     </div>
