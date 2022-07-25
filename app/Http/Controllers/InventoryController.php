@@ -10,6 +10,7 @@ use App\Models\Area;
 use App\Models\TypeProduct;
 use Illuminate\Http\Request;
 use Peoples;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 /**
@@ -25,7 +26,10 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::paginate();
+        $inventories = Inventory::with('people')
+        ->orderBy('created_at', 'desc')
+        ->paginate();
+        //$inventories = Inventory::paginate();
 
         return view('inventory.index', compact('inventories'))
             ->with('i', (request()->input('page', 1) - 1) * $inventories->perPage());
@@ -40,6 +44,7 @@ class InventoryController extends Controller
     {
         $inventory = new Inventory();
         $inventory->stock = 1;
+        $inventory->user_id = Auth::user()->id;
         $peoples = People::pluck('first_name', 'id');
         $areas = Area::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
@@ -70,7 +75,7 @@ class InventoryController extends Controller
    
        foreach ($querys as $querys) {
            $data[] = [
-               'label' => $querys->first_name,
+               'label' => $querys->first_name. " ".$querys->last_name ,
                'value' => $querys->id
            ];
        }
@@ -78,25 +83,7 @@ class InventoryController extends Controller
        return $data;
     }
 
-    public function getAutocomplete(Request $request){
-
-        $search = $request->search;
-  
-        if($search == ''){
-           $autocomplate = People::orderby('first_name','asc')->select('id','first_name')->limit(5)->get();
-        }else{
-           $autocomplate = People::orderby('first_name','asc')->select('id','first_name')->where('first_name', 'like', '%' .$search . '%')->limit(5)->get();
-        }
-  
-        $response = array();
-        foreach($autocomplate as $autocomplate){
-           $response[] = array("value"=>$autocomplate->id,"label"=>$autocomplate->first_name);
-        }
-  
-        echo json_encode($response);
-        exit;
-     }
-
+   
     /**
      * Store a newly created resource in storage.
      *

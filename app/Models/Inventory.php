@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $people_id
  * @property $brand_id
  * @property $area_id
+ * @property $user_id
  * @property $type_product_id
  * @property $created_at
  * @property $updated_at
@@ -33,6 +34,7 @@ class Inventory extends Model
 		'people_id' => 'required',
 		'brand_id' => 'required',
 		'area_id' => 'required',
+    'user_id' => 'required',
 		'type_product_id' => 'required',
     ];
 
@@ -43,7 +45,7 @@ class Inventory extends Model
      *
      * @var array
      */
-    protected $fillable = ['stock','model','serial','description','noplaca','color','size','active','people_id','brand_id','area_id','type_product_id'];
+    protected $fillable = ['stock','model','serial','description','noplaca','color','size','active','people_id','brand_id','area_id','type_product_id','user_id'];
 
     public function brand()
     {

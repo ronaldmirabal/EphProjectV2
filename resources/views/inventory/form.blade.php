@@ -3,18 +3,16 @@
         
     
             <div classs="form-group">
-                <label>Asignar Persona</label>
-                <input class="typeahead form-control" id="autocompletePeople" type="text" placeholder="Asignar a una Persona">
-                
-            </div>
-        </br>
-            <div class="form-group">
                 {{ Form::label('people_id') }}
-                {{ Form::hidden('people_id', $inventory->model, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
+                <input class="typeahead form-control" id="autocompletePeople" type="text" placeholder="Asignar a una Persona">
+                {{ Form::hidden('people_id', $inventory->people_id, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
             </div>
-        
-
+        </br>
+           
+        <div class="form-group">
+            {{ Form::hidden('user_id', $inventory->user_id, ['class' => 'form-control' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => 'user_id']) }}
+        </div>
         <div class="form-group">
             {{ Form::label('Cantidad') }}
             {{ Form::number('stock', $inventory->stock, ['class' => 'form-control' . ($errors->has('stock') ? ' is-invalid' : ''), 'placeholder' => 'Cantidad']) }}

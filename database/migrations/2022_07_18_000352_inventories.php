@@ -27,8 +27,18 @@ class Inventories extends Migration
             $table->bigInteger('people_id')->unsigned();
             $table->bigInteger('brand_id')->unsigned();
             $table->bigInteger('area_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('type_product_id')->unsigned();
             $table->timestamps();
+
+
+            $table->foreign('people_id')->references('id')->on('peoples')->onDelete('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('type_product_id')->references('id')->on('type_products')->onDelete('cascade');
+
+
         });
     }
 
