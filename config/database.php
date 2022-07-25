@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Support\Str;
-$DATABASE_URL = parse_url('mysql://bceed059ed7ff8:43098ef7@us-cdbr-east-06.cleardb.net/heroku_6a8e3704236108e?reconnect=true');
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$host = $url["us-cdbr-east-06.cleardb.net"] ?? null;
+$username = $url["bceed059ed7ff8"] ?? null;
+$password = $url["43098ef7"] ?? null;
+$database = substr($url["path"], 1);
+
 return [
 
     /*
@@ -45,17 +50,15 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => $host,
             'port' => env('DB_PORT', '3306'),
-            'database' => ltrim($DATABASE_URL["path"], "/"),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
