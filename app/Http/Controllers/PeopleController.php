@@ -19,7 +19,9 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        $peoples = People::paginate();
+        $peoples = People::with('typePeople')
+        ->orderBy('created_at', 'desc')
+        ->paginate();
 
         return view('people.index', compact('peoples'))
             ->with('i', (request()->input('page', 1) - 1) * $peoples->perPage());
@@ -50,7 +52,7 @@ class PeopleController extends Controller
         $people = People::create($request->all());
 
         return redirect()->route('people.index')
-            ->with('success', 'People created successfully.');
+            ->with('success', 'La persona se creo correctamente.');
     }
 
     /**
@@ -94,7 +96,7 @@ class PeopleController extends Controller
         $people->update($request->all());
 
         return redirect()->route('people.index')
-            ->with('success', 'People updated successfully');
+            ->with('success', 'Los datos de la persona fueron actualizados correctamente');
     }
 
     /**
@@ -107,6 +109,6 @@ class PeopleController extends Controller
         $people = People::find($id)->delete();
 
         return redirect()->route('people.index')
-            ->with('success', 'People deleted successfully');
+            ->with('success', 'La persona fue eliminada correctamente');
     }
 }
