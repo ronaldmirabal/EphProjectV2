@@ -12,9 +12,14 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
+                        
                     @endif
-
-                    {{ __('¡Estás conectado!') }}
+                    @if (Auth::check())
+                     {{ __('¡Estás conectado!') }}
+                    @endif
+                    
+                    
+                    
                 </div>
             </div>
         </div>
