@@ -1,5 +1,9 @@
 @extends('layouts.app')
+@section('css')
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
 
+    @endsection
 @section('title')
     Personas
 @endsection
@@ -31,7 +35,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover" id="tabla">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
@@ -71,8 +75,34 @@
                         </div>
                     </div>
                 </div>
-                {!! $peoples->links() !!}
+                
             </div>
         </div>
     </div>
 @endsection
+
+@section('js')
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tabla').DataTable({
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ cantidad por pagina",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Buscar",
+            "paginate": {
+                "next":"Siguiente",
+                "previous":"Anterior"
+            }
+        }
+        });
+    });
+</script>
+@endsection
+
+
+

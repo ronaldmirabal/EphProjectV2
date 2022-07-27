@@ -26,12 +26,12 @@
 
         <div class="form-group">
             {{ Form::label('Modelo') }}
-            {{ Form::text('model', $inventory->model, ['class' => 'form-control' . ($errors->has('model') ? ' is-invalid' : ''), 'placeholder' => 'Modelo']) }}
+            {{ Form::text('model', $inventory->model, ['class' => 'form-control' . ($errors->has('model') ? ' is-invalid' : ''), 'placeholder' => 'Modelo','maxlength'=> '100']) }}
             {!! $errors->first('model', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('serial') }}
-            {{ Form::text('serial', $inventory->serial, ['class' => 'form-control' . ($errors->has('serial') ? ' is-invalid' : ''), 'placeholder' => 'Serial']) }}
+            {{ Form::text('serial', $inventory->serial, ['class' => 'form-control' . ($errors->has('serial') ? ' is-invalid' : ''), 'placeholder' => 'Serial', 'maxlength'=> '20']) }}
             {!! $errors->first('serial', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
@@ -41,17 +41,17 @@
         </div>
         <div class="form-group">
             {{ Form::label('noplaca') }}
-            {{ Form::text('noplaca', $inventory->noplaca, ['class' => 'form-control' . ($errors->has('noplaca') ? ' is-invalid' : ''), 'placeholder' => 'Noplaca']) }}
+            {{ Form::text('noplaca', $inventory->noplaca, ['class' => 'form-control' . ($errors->has('noplaca') ? ' is-invalid' : ''), 'placeholder' => 'Noplaca','maxlength'=> '20']) }}
             {!! $errors->first('noplaca', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('color') }}
-            {{ Form::text('color', $inventory->color, ['class' => 'form-control' . ($errors->has('color') ? ' is-invalid' : ''), 'placeholder' => 'Color']) }}
+            {{ Form::text('color', $inventory->color, ['class' => 'form-control' . ($errors->has('color') ? ' is-invalid' : ''), 'placeholder' => 'Color','maxlength'=> '20']) }}
             {!! $errors->first('color', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">
             {{ Form::label('Tamaño') }}
-            {{ Form::text('size', $inventory->size, ['class' => 'form-control' . ($errors->has('size') ? ' is-invalid' : ''), 'placeholder' => 'Tamaño']) }}
+            {{ Form::text('size', $inventory->size, ['class' => 'form-control' . ($errors->has('size') ? ' is-invalid' : ''), 'placeholder' => 'Tamaño','maxlength'=> '20']) }}
             {!! $errors->first('size', '<div class="invalid-feedback">:message</div>') !!}
         </div>
        
