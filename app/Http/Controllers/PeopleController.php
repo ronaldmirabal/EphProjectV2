@@ -19,12 +19,11 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        $peoples = People::with('typePeople')
-        ->orderBy('created_at', 'desc')
-        ->paginate();
+        $peoples = People::orderBy('created_at', 'desc')->get(); 
+
 
         return view('people.index', compact('peoples'))
-            ->with('i', (request()->input('page', 1) - 1) * $peoples->perPage());
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**
