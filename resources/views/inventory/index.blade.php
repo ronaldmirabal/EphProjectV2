@@ -3,6 +3,10 @@
 @section('title')
     Inventario
 @endsection
+@section('css')
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -38,18 +42,15 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover" id="tabla">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
-										<th>Cantidad</th>
                                         <th>Tipo</th>
 										<th>Model</th>
 										<th>Serial</th>
 										<th>Descripcion</th>
 										<th>Noplaca</th>
-										<th>Activo</th>
 										<th>Asignada</th>
 										<th>Marca</th>
 										<th>Area</th>
@@ -62,18 +63,11 @@
                                     @foreach ($inventories as $inventory)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $inventory->stock }}</td>
                                             <td>{{ $inventory->typeproduct->name }}</td>
 											<td>{{ $inventory->model }}</td>
 											<td>{{ $inventory->serial }}</td>
 											<td>{{ $inventory->description }}</td>
 											<td>{{ $inventory->noplaca }}</td>
-                                            @if($inventory->active == 1)
-											<td>Si</td>
-                                            @else
-                                            <td>No</td>
-                                            @endif
 											<td>{{ $inventory->people->first_name. " ".$inventory->people->last_name}}</td>
 											<td>{{ $inventory->brand->name }}</td>
 											<td>{{ $inventory->area->name}}</td>
@@ -99,4 +93,27 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tabla').DataTable({
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ cantidad por pagina",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Buscar",
+            "paginate": {
+                "next":"Siguiente",
+                "previous":"Anterior"
+            }
+        }
+        });
+    });
+</script>
 @endsection
