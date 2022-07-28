@@ -26,13 +26,11 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::with('people')
-        ->orderBy('created_at', 'desc')
-        ->paginate();
+        $inventories = Inventory::with('people','area','brand','typeproduct')->get();
         //$inventories = Inventory::paginate();
 
         return view('inventory.index', compact('inventories'))
-            ->with('i', (request()->input('page', 1) - 1) * $inventories->perPage());
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

@@ -89,7 +89,6 @@
                         </div>
                     </div>
                 </div>
-                {!! $inventories->links() !!}
             </div>
         </div>
     </div>
