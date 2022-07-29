@@ -18,6 +18,13 @@
             {{ Form::number('stock', $inventory->stock, ['class' => 'form-control' . ($errors->has('stock') ? ' is-invalid' : ''), 'placeholder' => 'Cantidad']) }}
             {!! $errors->first('stock', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+
+        <div class="form-group">
+            {{ Form::label('Tipo de Producto') }}
+            {{ Form::select('type_product_id',$typeproducts, $inventory->type_product_id, ['class' => 'form-control' . ($errors->has('type_product_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Tipo']) }}
+            {!! $errors->first('type_product_id', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+        
         <div class="form-group">
             {{ Form::label('Marca') }}
             {{ Form::select('brand_id',$brands, $inventory->brand_id, ['class' => 'form-control' . ($errors->has('brand_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Marca']) }}
@@ -55,19 +62,13 @@
             {!! $errors->first('size', '<div class="invalid-feedback">:message</div>') !!}
         </div>
        
-     
-        
-       
+    
         <div class="form-group">
             {{ Form::label('Area') }}
             {{ Form::select('area_id',$areas, $inventory->area_id, ['class' => 'form-control' . ($errors->has('area_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Área']) }}
             {!! $errors->first('area_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-        <div class="form-group">
-            {{ Form::label('Tipo de Producto') }}
-            {{ Form::select('type_product_id',$typeproducts, $inventory->type_product_id, ['class' => 'form-control' . ($errors->has('type_product_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Tipo']) }}
-            {!! $errors->first('type_product_id', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
+       
 
     </div>
     <div class="box-footer mt20">
