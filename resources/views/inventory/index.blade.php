@@ -45,7 +45,7 @@
                             <table class="table table-striped table-hover" id="tabla">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th>#Id</th>
                                         <th>Tipo</th>
 										<th>Model</th>
 										<th>Serial</th>
@@ -62,7 +62,7 @@
                                 <tbody>
                                     @foreach ($inventories as $inventory)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td>{{ $inventory->id }}</td>
                                             <td>{{ $inventory->typeproduct->name }}</td>
 											<td>{{ $inventory->model }}</td>
 											<td>{{ $inventory->serial }}</td>
@@ -100,6 +100,7 @@
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
+            order: [[1, 'desc']],
             "language": {
             "lengthMenu": "Mostrar _MENU_ cantidad por pagina",
             "zeroRecords": "Nothing found - sorry",
