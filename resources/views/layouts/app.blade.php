@@ -49,28 +49,31 @@
                     <!-- Left Side Of Navbar -->
                     @if (Auth::check())
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('type-people.index') }}">{{ __('Tipos de Personas') }}</a>
+                       
+
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Gestionar Personal
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('people.index') }}">{{ __('Personal') }}</a>
+                                <a class="dropdown-item" href="{{ route('type-people.index') }}">{{ __('Tipo de Personal') }}</a>
+                            </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('people.index') }}">{{ __('Personas') }}</a>
-                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Gestionar Inventario
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('inventories.index') }}">{{ __('Inventario') }}</a>
+                                <a class="dropdown-item" href="{{ route('brands.index') }}">{{ __('Marcas') }}</a>
+                                <a class="dropdown-item" href="{{ route('areas.index') }}">{{ __('Áreas') }}</a>
+                                <a class="dropdown-item" href="{{ route('type-products.index') }}">{{ __('Tipo de Productos') }}</a>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('brands.index') }}">{{ __('Marcas') }}</a>
+                            </div>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('areas.index') }}">{{ __('Areas') }}</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('type-products.index') }}">{{ __('Tipo de Productos') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('inventories.index') }}">{{ __('Inventario') }}</a>
-                        </li>
+                 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a>
                         </li>
