@@ -25,6 +25,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Anular Inventario'])->syncRoles([$role1, $role3]);
         Permission::create(['name' => 'Editar'])->assignRole([$role1]);
         Permission::create(['name' => 'Anular Documento'])->assignRole([$role1]);
-
+        Permission::create(['name' => 'user-create'])->assignRole([$role1]);
+        Permission::create(['name' => 'user-edit'])->assignRole([$role1]);
+        Permission::create(['name' => 'user-delete'])->assignRole([$role1]);
     }
 }
