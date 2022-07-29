@@ -38,6 +38,7 @@
 										<th>Nombre de Usuario</th>
                                         <th>Nombre Completo</th>
                                         <th>Correo</th>
+                                        <th>Rol</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -49,6 +50,13 @@
 											<td>{{ $user->username }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+                                                @if(!empty($user->getRoleNames()))
+                                                  @foreach($user->getRoleNames() as $v)
+                                                     <label class="badge badge-success">{{ $v }}</label>
+                                                  @endforeach
+                                                @endif
+                                              </td>
                                             <td>
                                                 <form action="{{ route('users.destroy',$user ?? ''->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-success" href="{{ route('users.edit',$user->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
