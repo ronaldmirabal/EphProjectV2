@@ -8,11 +8,12 @@ use App\Models\People;
 use App\Models\Brand;
 use App\Models\Area;
 use App\Models\TypeProduct;
+use App\Models\University;
 use Illuminate\Http\Request;
 use Peoples;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 /**
  * Class InventoryController
  * @package App\Http\Controllers
@@ -31,6 +32,18 @@ class InventoryController extends Controller
 
         return view('inventory.index', compact('inventories'))
             ->with('i', (request()->input('page', 1) - 1));
+    }
+
+
+
+  
+    public function pdf()
+    {
+        $inventories = Inventory::with('people','area','brand','typeproduct')->get();
+        $universities = University::find(1);
+       $pdf = Pdf::loadView('inventory.pdf', ['inventories'=>$inventories, 'universities'=>$universities])->setPaper('a4', 'landscape');;
+       return $pdf->stream();
+    //return view('inventory.pdf', compact('inventories','universities'));
     }
 
     /**
@@ -107,7 +120,6 @@ class InventoryController extends Controller
     public function show($id)
     {
         $inventory = Inventory::find($id);
-
         return view('inventory.show', compact('inventory'));
     }
 

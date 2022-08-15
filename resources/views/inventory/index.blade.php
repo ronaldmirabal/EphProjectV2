@@ -21,10 +21,10 @@
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('inventories.create') }}" class="btn btn-primary btn-sm " >
+                                <a href="{{ route('inventory.create') }}" class="btn btn-primary btn-sm " >
                                     {{ __('Crear Nuevo') }}
                                   </a>
-                                <a href="{{ route('inventories.create') }}" class="btn btn-danger btn-sm ">
+                                <a href="{{ route('inventory.pdf') }}" class="btn btn-danger btn-sm ">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </a>
                                 <a href="{{ route('export') }}" class="btn btn-success btn-sm ">
@@ -74,9 +74,9 @@
 											
 
                                             <td>
-                                                <form action="{{ route('inventories.destroy',$inventory->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('inventories.show',$inventory->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('inventories.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                <form action="{{ route('inventory.destroy',$inventory->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('inventory.show',$inventory->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('inventory.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>

@@ -20,15 +20,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::resource('type-people', App\Http\Controllers\TypePeopleController::class)->middleware('auth');
 
 Route::resource('people', App\Http\Controllers\PeopleController::class)->middleware('auth');
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
 Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
-Route::resource('inventories', App\Http\Controllers\InventoryController::class)->middleware('auth');
+Route::resource('inventory', App\Http\Controllers\InventoryController::class)->middleware('auth');
 
 Route::get('autocompletePeople', [App\Http\Controllers\InventoryController::class, 'autocompletePeople'])->name('autocompletePeople');
+Route::get('pdf', [App\Http\Controllers\InventoryController::class, 'pdf'])->name('inventory.pdf');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
@@ -36,6 +38,6 @@ Route::get('export', [App\Http\Controllers\InventoryController::class, 'export']
 
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles', RoleController::class);
+    //Route::resource('roles', RoleController::class);
     Route::resource('users', App\Http\Controllers\UserController::class);
 });

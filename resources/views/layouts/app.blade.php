@@ -66,7 +66,7 @@
                                 Gestionar Inventario
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('inventories.index') }}">{{ __('Inventario') }}</a>
+                                <a class="dropdown-item" href="{{ route('inventory.index') }}">{{ __('Inventario') }}</a>
                                 <a class="dropdown-item" href="{{ route('brands.index') }}">{{ __('Marcas') }}</a>
                                 <a class="dropdown-item" href="{{ route('areas.index') }}">{{ __('Áreas') }}</a>
                                 <a class="dropdown-item" href="{{ route('type-products.index') }}">{{ __('Tipo de Productos') }}</a>

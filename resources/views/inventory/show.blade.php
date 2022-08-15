@@ -14,7 +14,7 @@
                             <span class="card-title">Detalle de Inventario</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('inventories.index') }}"> Regresar</a>
+                            <a class="btn btn-primary" href="{{ route('inventory.index') }}"> Regresar</a>
                         </div>
                     </div>
 
