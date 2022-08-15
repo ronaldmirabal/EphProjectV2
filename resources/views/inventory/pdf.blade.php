@@ -23,11 +23,6 @@
 }
 
 
-html {
-  min-height: 100%;
-  position: relative;
-}
-
 
 th {
   padding-top: 12px;
@@ -70,13 +65,6 @@ th {
 }
 
 
-footer {
-    position:fixed;
-   left:0px;
-   bottom:0px;
-   height:30px;
-   width:100%;
-}
 
 
 
@@ -106,11 +94,11 @@ footer {
                 <th>Tipo</th>
                 <th>Serial</th>
                 <th>Noplaca</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Asignada</th>
                 <th>Marca</th>
-                <th>Model</th>
-                <th>Area</th>
+                <th>Modelo</th>
+                <th>Área</th>
             </tr>
         </thead>
         <tbody>
@@ -130,13 +118,12 @@ footer {
         </tbody>
     </table>
 
-
-
+    <br>
+    <br>
+<br>
    
     <footer>
       
-
-
         <div class="columna">
             <label class="firmante">Ronald Mirabal Gomez</label>
             <div class="linea"></div>
