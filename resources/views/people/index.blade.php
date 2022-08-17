@@ -87,6 +87,7 @@
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
+            order: [[3, 'desc']],
             "language": {
             "lengthMenu": "Mostrar _MENU_ cantidad por pagina",
             "zeroRecords": "Nothing found - sorry",

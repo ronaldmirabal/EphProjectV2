@@ -19,7 +19,8 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        $peoples = People::orderBy('created_at', 'desc')->get(); 
+        $peoples = People::with('typePeople')
+        ->orderBy('peoples.id', 'desc')->get(); 
 
 
         return view('people.index', compact('peoples'))
