@@ -27,9 +27,15 @@ Route::resource('people', App\Http\Controllers\PeopleController::class)->middlew
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
 Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
+Route::resource('inventory-transfer', App\Http\Controllers\InventoryTransferController::class)->middleware('auth');
+
 Route::resource('inventory', App\Http\Controllers\InventoryController::class)->middleware('auth');
 
 Route::get('autocompletePeople', [App\Http\Controllers\InventoryController::class, 'autocompletePeople'])->name('autocompletePeople');
+Route::get('/autocompletePeople', [App\Http\Controllers\InventoryTransferController::class, 'autocompletePeople'])->name('autocompletePeople');
+Route::get('/autocompleteInventory', [App\Http\Controllers\InventoryTransferController::class, 'autocompleteInventory'])->name('autocompleteInventory');
+Route::get('/getPerson', [App\Http\Controllers\InventoryTransferController::class, 'getPerson'])->name('getPerson');
+
 Route::get('pdf', [App\Http\Controllers\InventoryController::class, 'pdf'])->name('inventory.pdf');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
