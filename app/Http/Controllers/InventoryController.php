@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use App\Models\People;
 use App\Models\Brand;
 use App\Models\Area;
+use App\Models\inventory_history;
 use App\Models\TypeProduct;
 use App\Models\University;
 use Illuminate\Http\Request;
@@ -27,9 +28,8 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::with('people','area','brand','typeproduct')->get();
-        //$inventories = Inventory::paginate();
-
+        $inventories = Inventory::with('people','area','brand','typeproduct')
+        ->orderby('inventories.id','desc')->get();
         return view('inventory.index', compact('inventories'))
             ->with('i', (request()->input('page', 1) - 1));
     }
@@ -104,10 +104,14 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         request()->validate(Inventory::$rules);
-
         $inventory = Inventory::create($request->all());
-
-        return redirect()->route('inventories.index')
+        $history = new inventory_history();
+        $history->description = "Se creo el inventario";
+        $history->created_at = now();
+        $history->updated_at = now();
+        $history->inventory_id = $inventory->id;
+        $history->save();
+        return redirect()->route('inventory.index')
             ->with('success', 'El registro del inventario fue creado');
     }
 
@@ -120,7 +124,8 @@ class InventoryController extends Controller
     public function show($id)
     {
         $inventory = Inventory::find($id);
-        return view('inventory.show', compact('inventory'));
+        $histories = inventory_history::where('inventory_id','=',$id)->get();
+        return view('inventory.show', compact('inventory', 'histories'));
     }
 
     /**
@@ -153,7 +158,7 @@ class InventoryController extends Controller
 
         $inventory->update($request->all());
 
-        return redirect()->route('inventories.index')
+        return redirect()->route('inventory.index')
             ->with('success', 'El registro del inventario fue actualizado');
     }
 
@@ -169,7 +174,7 @@ class InventoryController extends Controller
             $inventory->active = 0;
             $inventory->save();
         }
-        return redirect()->route('inventories.index')
+        return redirect()->route('inventory.index')
             ->with('success', 'El registro del inventario fue desactivado');
     }
 }

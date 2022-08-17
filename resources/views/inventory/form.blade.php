@@ -3,7 +3,7 @@
         
     
             <div classs="form-group">
-                {{ Form::label('people_id') }}
+                {{ Form::label('people_id',__('Asignar Persona')) }}
                 <input class="typeahead form-control" id="autocompletePeople" type="text" placeholder="Asignar a una Persona">
                 {{ Form::hidden('people_id', $inventory->people_id, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}

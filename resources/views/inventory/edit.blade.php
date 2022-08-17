@@ -16,7 +16,7 @@
                         <span class="card-title">Actualizar Registro de Inventario</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('inventories.update', $inventory->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('inventory.update', $inventory->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 

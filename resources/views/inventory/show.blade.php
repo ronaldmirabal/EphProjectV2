@@ -87,8 +87,31 @@
                         <div class="float-left">
                             <span class="card-title">Historial de Inventario</span>
                         </div>
-                        
                     </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="tabla">
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($histories as $history)
+                                        <tr>
+                                            <td>{{ $history->description }}</td>
+                                            <td>{{ $history->created_at }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        
+                        
+                    
              
             </div>
         </div>

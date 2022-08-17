@@ -16,7 +16,7 @@
                         <span class="card-title">Crear Nuevo Inventario</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('inventories.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('inventory.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
                             @include('inventory.form')
