@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Transferencia de Inventario
+@section('title')
+    Crear Transferencia de Inventario
 @endsection
 
 @section('css')

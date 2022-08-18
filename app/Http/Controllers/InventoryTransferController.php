@@ -81,7 +81,9 @@ class InventoryTransferController extends Controller
     {
         try {
             $term = $request->get('term');
-            $querys = People::where('first_name', 'LIKE', '%' . $term . '%')->get();
+            $querys = People::where('first_name', 'LIKE', '%' . $term . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $term . '%')
+            ->get();
             $data = [];
             foreach ($querys as $querys) {
             $data[] = [
