@@ -74,14 +74,10 @@
 											
 
                                             <td>
-                                                <form action="{{ route('inventory.destroy',$inventory->id) }}" method="POST">
+                                                
                                                     <a class="btn btn-sm btn-primary " href="{{ route('inventory.show',$inventory->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('inventory.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="/inventory/delete/{{$inventory->id}}" class="button delete-confirm">Delete</a>
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
-                                                </form>
+                                                    <a href="/inventory/delete/{{$inventory->id}}" class="delete-confirm btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
