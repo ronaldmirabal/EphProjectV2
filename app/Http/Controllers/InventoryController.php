@@ -29,6 +29,7 @@ class InventoryController extends Controller
     public function index()
     {
         $inventories = Inventory::with('people','area','brand','typeproduct')
+        ->where('active', '=', true)
         ->orderby('inventories.id','desc')->get();
         return view('inventory.index', compact('inventories'))
             ->with('i', (request()->input('page', 1) - 1));
@@ -162,23 +163,7 @@ class InventoryController extends Controller
             ->with('success', 'El registro del inventario fue actualizado');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $inventory = Inventory::find($id);
-        if($inventory){
-            $inventory->active = 0;
-            $inventory->save();
-        }
-        return redirect()->route('inventory.index')
-            ->with('success', 'El registro del inventario fue desactivado');
-    }
-
-
+ 
     public function delete($id)
     {
         $inventory = Inventory::find($id);
