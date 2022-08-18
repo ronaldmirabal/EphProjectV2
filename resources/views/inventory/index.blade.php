@@ -79,6 +79,7 @@
                                                     <a class="btn btn-sm btn-success" href="{{ route('inventory.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
+                                                    <a href="/inventory/delete/{{$inventory->id}}" class="button delete-confirm">Delete</a>
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
                                                 </form>
                                             </td>
@@ -95,9 +96,28 @@
 @endsection
 
 @section('js')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 <script>
+
+$('.delete-confirm').on('click', function (event) {
+    event.preventDefault();
+    const url = $(this).attr('href');
+    swal({
+        title: '¿Está seguro que desea eliminar?',
+        text: 'El articulo de inventario pasara a estar desactivado!',
+        icon: 'warning',
+        buttons: ["No", "Si!"],
+    }).then(function(value) {
+        if (value) {
+            window.location.href = url;
+        }
+    });
+});
+
+
+
     $(document).ready(function () {
         $('#tabla').DataTable({
             order: [[1, 'desc']],

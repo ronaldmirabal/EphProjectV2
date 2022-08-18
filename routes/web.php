@@ -35,7 +35,7 @@ Route::get('autocompletePeople', [App\Http\Controllers\InventoryController::clas
 Route::get('/autocompletePeople', [App\Http\Controllers\InventoryTransferController::class, 'autocompletePeople'])->name('autocompletePeople');
 Route::get('/autocompleteInventory', [App\Http\Controllers\InventoryTransferController::class, 'autocompleteInventory'])->name('autocompleteInventory');
 Route::get('/getPerson', [App\Http\Controllers\InventoryTransferController::class, 'getPerson'])->name('getPerson');
-
+Route::get('inventory/delete/{id}', [App\Http\Controllers\InventoryController::class, 'delete']);
 Route::get('pdf', [App\Http\Controllers\InventoryController::class, 'pdf'])->name('inventory.pdf');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');

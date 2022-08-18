@@ -177,4 +177,17 @@ class InventoryController extends Controller
         return redirect()->route('inventory.index')
             ->with('success', 'El registro del inventario fue desactivado');
     }
+
+
+    public function delete($id)
+    {
+        $inventory = Inventory::find($id);
+        if($inventory){
+            $inventory->active = 0;
+            $inventory->save();
+        }
+        return redirect()->route('inventory.index')
+            ->with('success', 'El registro del inventario fue desactivado');
+    }
+
 }
