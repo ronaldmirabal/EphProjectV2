@@ -42,7 +42,7 @@ class InventoryController extends Controller
     {
         $inventories = Inventory::with('people','area','brand','typeproduct')->get();
         $universities = University::find(1);
-       $pdf = Pdf::loadView('inventory.pdf', ['inventories'=>$inventories, 'universities'=>$universities])->setPaper('a4', 'landscape');;
+       $pdf = Pdf::loadView('inventory.pdf', ['inventories'=>$inventories, 'universities'=>$universities])->setPaper('a4', 'landscape');
        return $pdf->download('inventory.pdf');
     //return view('inventory.pdf', compact('inventories','universities'));
     }

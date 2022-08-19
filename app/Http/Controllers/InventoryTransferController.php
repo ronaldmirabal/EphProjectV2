@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\inventory_history;
 use App\Models\InventoryTransfer;
 use App\Models\People;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
@@ -97,7 +98,13 @@ class InventoryTransferController extends Controller
         }
     }
 
-
+    public function pdf($id)
+    {
+        $transfer = InventoryTransfer::find($id);
+        $pdf = Pdf::loadView('inventory-transfer.pdf', ['transfer'=>$transfer])->setPaper('letter');
+        return $pdf->download('inventory-transfer.pdf');
+        //return view('inventory-transfer.pdf', compact('transfer'));
+    }
    
     public function getPerson(Request $request)
     {

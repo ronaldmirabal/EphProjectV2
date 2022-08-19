@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('serial') }}
-            {{ Form::text('serial', $inventory->serial, ['class' => 'form-control' . ($errors->has('serial') ? ' is-invalid' : ''), 'placeholder' => 'Serial', 'maxlength'=> '20']) }}
+            {{ Form::text('serial', $inventory->serial, ['class' => 'form-control' . ($errors->has('serial') ? ' is-invalid' : ''), 'placeholder' => 'Serial', 'maxlength'=> '50']) }}
             {!! $errors->first('serial', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group">

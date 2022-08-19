@@ -56,7 +56,7 @@ Transferencia de Inventario
 
                                             <td>
                                                 <form action="{{ route('inventory-transfer.destroy',$inventoryTransfer->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('inventory-transfer.show',$inventoryTransfer->id) }}"><i class="fa fa-fw fa-print"></i> Imprimir</a>
+                                                    <a class="btn btn-sm btn-primary " href="/inventory-transfer/pdf/{{$inventoryTransfer->id}}"><i class="fa fa-fw fa-print"></i> Imprimir</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('inventory-transfer.edit',$inventoryTransfer->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')
