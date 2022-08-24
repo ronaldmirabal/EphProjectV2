@@ -15,6 +15,9 @@ use Peoples;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Session as FacadesSession;
+
 /**
  * Class InventoryController
  * @package App\Http\Controllers
@@ -105,15 +108,27 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         request()->validate(Inventory::$rules);
-        $inventory = Inventory::create($request->all());
-        $history = new inventory_history();
-        $history->description = "Se creo el inventario";
-        $history->created_at = now();
-        $history->updated_at = now();
-        $history->inventory_id = $inventory->id;
-        $history->save();
-        return redirect()->route('inventory.index')
-            ->with('success', 'El registro del inventario fue creado');
+        if(!empty($request->noplaca) ){
+            $selectNoPlaca = Inventory::select('noplaca')
+            ->where('noplaca','=',$request->noplaca)->get();
+        }
+        
+        if($selectNoPlaca->isEmpty()){
+            $inventory = Inventory::create($request->all());
+            $history = new inventory_history();
+            $history->description = "Se creo el inventario";
+            $history->created_at = now();
+            $history->updated_at = now();
+            $history->inventory_id = $inventory->id;
+            $history->save();
+            return redirect()->route('inventory.index')
+                ->with('success', 'El registro del inventario fue creado');
+        }else{
+            $request->session()->flash('error', 'El NoPlaca ya existe en la base de datos.');
+            return redirect()->back()->withInput();
+        }
+
+       
     }
 
     /**
