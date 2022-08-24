@@ -116,7 +116,7 @@ $('.delete-confirm').on('click', function (event) {
 
     $(document).ready(function () {
         $('#tabla').DataTable({
-            order: [[1, 'desc']],
+            order: [[0, 'desc']],
             "language": {
             "lengthMenu": "Mostrar _MENU_ cantidad por pagina",
             "zeroRecords": "Nothing found - sorry",

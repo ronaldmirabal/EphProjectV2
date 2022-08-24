@@ -8,7 +8,7 @@
                 {{ Form::hidden('people_id', $inventory->people_id, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
             </div>
-        </br>
+  
            
         <div class="form-group">
             {{ Form::hidden('user_id', $inventory->user_id, ['class' => 'form-control' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => 'user_id']) }}
