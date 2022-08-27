@@ -22,7 +22,7 @@ Auth::routes();
 
 
 Route::resource('type-people', App\Http\Controllers\TypePeopleController::class)->middleware('auth');
-
+Route::resource('loan', App\Http\Controllers\LoanController::class)->middleware('auth');
 Route::resource('people', App\Http\Controllers\PeopleController::class)->middleware('auth');
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
@@ -41,6 +41,9 @@ Route::get('inventory-transfer/pdf/{id}', [App\Http\Controllers\InventoryTransfe
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::get('export', [App\Http\Controllers\InventoryController::class, 'export'])->name('export');
+
+
+Route::get('loan/deliver/{id}', [App\Http\Controllers\LoanController::class, 'deliver'])->name('loan.deliver');
 
 
 Route::group(['middleware' => ['auth']], function() {
