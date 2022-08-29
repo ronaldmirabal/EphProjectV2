@@ -111,10 +111,10 @@ class InventoryController extends Controller
         $selectNoPlaca = '';
         if(!empty($request->noplaca) ){
             $selectNoPlaca = Inventory::select('noplaca')
-            ->where('noplaca','=',$request->noplaca)->get();
+            ->where('noplaca','=',$request->noplaca)->get()->count();
         }
         
-        if(empty($selectNoPlaca)){
+        if($selectNoPlaca <= 0){
             $inventory = Inventory::create($request->all());
             $history = new inventory_history();
             $history->description = "Se creo el inventario";
