@@ -38,6 +38,7 @@ Route::get('/getPerson', [App\Http\Controllers\InventoryTransferController::clas
 Route::get('inventory/delete/{id}', [App\Http\Controllers\InventoryController::class, 'delete']);
 Route::get('pdf', [App\Http\Controllers\InventoryController::class, 'pdf'])->name('inventory.pdf');
 Route::get('inventory-transfer/pdf/{id}', [App\Http\Controllers\InventoryTransferController::class, 'pdf'])->name('transfer.pdf');
+Route::get('inventory/printlabel/{id}', [App\Http\Controllers\InventoryController::class, 'printlabel'])->name('printlabel.pdf');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::get('export', [App\Http\Controllers\InventoryController::class, 'export'])->name('export');

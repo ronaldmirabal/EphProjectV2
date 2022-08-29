@@ -75,9 +75,25 @@
 
                                             <td>
                                                 
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('inventory.show',$inventory->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('inventory.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
-                                                    <a href="/inventory/delete/{{$inventory->id}}" class="delete-confirm btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i>Delete</a>
+                                                                           
+
+                                                    
+                                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                            ...
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                            <a class="dropdown-item" href="{{ route('inventory.show',$inventory->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
+                                                            <a class="dropdown-item" href="{{ route('inventory.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                            <a href="/inventory/delete/{{$inventory->id}}" class="dropdown-item"><i class="fa fa-fw fa-trash"></i>Delete</a>
+        
+                                   
+                                                            <a class="dropdown-item" href="{{ route('printlabel.pdf', $inventory->id) }}"><i class="fa fa-fw fa-print"></i>{{ __('Imprimir Label') }}</a>
+                                                            
+                                                        </div>
+                                                    
+          
+                                                    
+
                                             </td>
                                         </tr>
                                     @endforeach
