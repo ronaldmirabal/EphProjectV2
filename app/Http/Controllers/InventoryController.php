@@ -108,12 +108,13 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         request()->validate(Inventory::$rules);
+        $selectNoPlaca = '';
         if(!empty($request->noplaca) ){
             $selectNoPlaca = Inventory::select('noplaca')
             ->where('noplaca','=',$request->noplaca)->get();
         }
         
-        if($selectNoPlaca->isEmpty()){
+        if(empty($selectNoPlaca)){
             $inventory = Inventory::create($request->all());
             $history = new inventory_history();
             $history->description = "Se creo el inventario";
