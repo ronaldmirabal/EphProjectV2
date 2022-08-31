@@ -12,7 +12,7 @@
 </head>
 <body>
     
-    <div style="clear:both; position:relative;">
+    <div style="clear:both; position:relative; border-style: solid;display: inline-block;">
         <div style="position:absolute; left:0pt; width:50pt;">
             <img src="data:image/png;base64, {!! $qrcode !!}"/>
         </div>
