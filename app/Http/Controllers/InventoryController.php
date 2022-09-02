@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Facade\FlareClient\Http\Response;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -177,8 +178,24 @@ class InventoryController extends Controller
         $qrcode = base64_encode(QrCode::format('svg')->size(55)->errorCorrection('H')->generate($inventory->noplaca));
 
         return Pdf::loadView('inventory.printlabel', compact('qrcode','areas', 'inventory', 'typeproducts'))->setPaper('a4', 'portrait')->stream('archivo.pdf');;
+    }
 
-        //return view('inventory.printlabel', compact('inventory','areas','typeproducts'));
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     */
+    public function printlabelSelect(Request $request)
+    {
+        $inventory = Inventory::find($id);
+        $areas = Area::pluck('name', 'id');
+        $typeproducts = TypeProduct::pluck('name', 'id');
+        $qrcode = base64_encode(QrCode::format('svg')->size(55)->errorCorrection('H')->generate($inventory->noplaca));
+
+        return Pdf::loadView('inventory.printlabel', compact('qrcode','areas', 'inventory', 'typeproducts'))->setPaper('a4', 'portrait')->stream('archivo.pdf');;
     }
 
     /**

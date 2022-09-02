@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Models\Inventory;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $inventory = Inventory::all()->count();
+        return view('home', compact('inventory'));
 });
 
 Auth::routes();
