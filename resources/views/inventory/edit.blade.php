@@ -4,6 +4,10 @@
     Actualizar Inventario
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+@endsection
+
 @section('content')
     <section class="content container-fluid">
         <div class="">
