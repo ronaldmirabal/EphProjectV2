@@ -101,9 +101,10 @@ class InventoryTransferController extends Controller
     public function pdf($id)
     {
         $transfer = InventoryTransfer::find($id);
-        $pdf = Pdf::loadView('inventory-transfer.pdf', ['transfer'=>$transfer])->setPaper('letter');
-        return $pdf->download('inventory-transfer.pdf');
-        //return view('inventory-transfer.pdf', compact('transfer'));
+        $inventory = Inventory::find($transfer->inventory_id);
+        $pdf = Pdf::loadView('inventory-transfer.pdf', ['transfer'=>$transfer, 'inventory'=>$inventory])->setPaper('letter');
+        //return $pdf->download('inventory-transfer.pdf');
+        return Pdf::loadView('inventory-transfer.pdf', compact('transfer', 'inventory'))->setPaper('letter', 'portrait')->stream('archivo.pdf');
     }
    
     public function getPerson(Request $request)

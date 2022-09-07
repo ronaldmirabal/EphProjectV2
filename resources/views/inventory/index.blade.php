@@ -45,7 +45,7 @@
                     @endif
 
                     <div class="card-body">
-                        <div class="table-responsive">ç
+                        <div class="table-responsive">
                             <form id="frm-example" method="POST">
                                 <table class="table table-striped table-hover" id="tabla" class="display">
                                     <thead class="thead">

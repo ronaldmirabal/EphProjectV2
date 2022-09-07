@@ -29,6 +29,7 @@ Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
 Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
 Route::resource('inventory-transfer', App\Http\Controllers\InventoryTransferController::class)->middleware('auth');
+Route::resource('classroom', App\Http\Controllers\ClassroomController::class)->middleware('auth');
 
 Route::resource('inventory', App\Http\Controllers\InventoryController::class)->middleware('auth');
 
