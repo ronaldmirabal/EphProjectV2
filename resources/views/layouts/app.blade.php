@@ -13,7 +13,9 @@
     
     <!-- Scripts -->
     
-   
+   <script type="text/javascript">
+    var baseURL = {!! json_encode(url('/')) !!}
+   </script>
 
 
     <!-- Fonts -->
@@ -83,8 +85,9 @@
                                 Gestionar Calendario
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('event.index') }}">{{ __('Calendario') }}</a>
                                 <a class="dropdown-item" href="{{ route('classroom.index') }}">{{ __('Aulas') }}</a>
-                               
+                                
 
                             </div>
                         </li>

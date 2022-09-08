@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Route::resource('event', App\Http\Controllers\EventController::class)->middleware('auth');
 
 Route::resource('type-people', App\Http\Controllers\TypePeopleController::class)->middleware('auth');
 Route::resource('loan', App\Http\Controllers\LoanController::class)->middleware('auth');
@@ -33,6 +34,8 @@ Route::resource('classroom', App\Http\Controllers\ClassroomController::class)->m
 
 Route::resource('inventory', App\Http\Controllers\InventoryController::class)->middleware('auth');
 
+Route::get('/event/show', [App\Http\Controllers\EventController::class, 'show'])->middleware('auth');
+Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->middleware('auth')->name('event.index');
 Route::get('autocompletePeople', [App\Http\Controllers\InventoryController::class, 'autocompletePeople'])->name('autocompletePeople');
 Route::get('/autocompletePeople', [App\Http\Controllers\InventoryTransferController::class, 'autocompletePeople'])->name('autocompletePeople');
 Route::get('/autocompleteInventory', [App\Http\Controllers\InventoryTransferController::class, 'autocompleteInventory'])->name('autocompleteInventory');
@@ -44,9 +47,12 @@ Route::get('inventory/printlabel/{id}', [App\Http\Controllers\InventoryControlle
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::get('export', [App\Http\Controllers\InventoryController::class, 'export'])->name('export');
-
-
 Route::get('loan/deliver/{id}', [App\Http\Controllers\LoanController::class, 'deliver'])->name('loan.deliver');
+
+Route::post('/event/add', [App\Http\Controllers\EventController::class, 'store'])->middleware('auth');
+Route::post('/event/edit/{id}', [App\Http\Controllers\EventController::class, 'edit'])->middleware('auth');
+Route::post('/event/delete/{id}', [App\Http\Controllers\EventController::class, 'destroy'])->middleware('auth');
+Route::post('/event/update/{event}', [App\Http\Controllers\EventController::class, 'update'])->middleware('auth');
 
 
 Route::group(['middleware' => ['auth']], function() {
