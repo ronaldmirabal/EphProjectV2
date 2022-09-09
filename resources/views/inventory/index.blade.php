@@ -32,7 +32,7 @@
                                 </a>
 
                                 <a id="printlabels" class="btn btn-primary btn-sm " >
-                                    {{ __('Imprimir Label') }}
+                                    <i class="fa-solid fa-qrcode"></i>
                                 </a>
                                
                               </div>
