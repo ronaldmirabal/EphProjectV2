@@ -167,6 +167,16 @@ Agenda
 @section('content')
 
     <div class="container">
+
+
+      <div class="input-group mb-3">
+        {{ Form::select('classroom_id',$classrooms, $event->classroom_id, ['class' => 'form-control' . ($errors->has('classroom_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Aula', 'id' =>'classroom_id2']) }}
+        <div class="input-group-append">
+          <button id="filter" class="input-group-text">Filtrar</button>
+        </div>
+      </div>
+
+     
         <div id="agenda">
         </div>    
     </div>
@@ -229,9 +239,9 @@ Agenda
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="btnclose" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnSave" class="btn btn-success">Guardar</button>
-                    <button type="button" id="btnMod" class="btn btn-warning">Modificar</button>
                     <button type="button" id="btnDelete" class="btn btn-danger">Eliminar</button>
+                    <button type="button" id="btnMod" class="btn btn-warning">Modificar</button>
+                    <button type="button" id="btnSave" class="btn btn-success">Guardar</button>
                 </div>
             </div>
         </div>

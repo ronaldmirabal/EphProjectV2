@@ -31,7 +31,16 @@ class EventController extends Controller
     public function store(Request $request)
     {
        request()->validate(Event::$rules);
-       $event = Event::create($request->all());
+      $validation = Event::where('classroom_id', '=', $request->classroom_id)
+      ->whereBetween('start', [$request->start, $request->end])
+      ->orwhereBetween('end', [$request->start, $request->end])
+      ->exists();
+      if($validation == false){
+        $event = Event::create($request->all());
+      }else{
+        
+      }
+       
     }
 
     /**
@@ -43,6 +52,22 @@ class EventController extends Controller
     public function show()
     {
         $event = Event::all();
+        return response()->json($event);
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filter($id)
+    {
+      if ($id == '0'){
+        $event = Event::all();
+      }else{
+        $event = Event::where('classroom_id', '=', $id)->get();
+      }
         return response()->json($event);
     }
 
