@@ -220,8 +220,16 @@ class InventoryController extends Controller
     {
         $inventory = Inventory::find($id);
         if($inventory){
+            $history = new inventory_history();
+            $history->description = "Se elimino del inventario";
+            $history->created_at = now();
+            $history->updated_at = now();
+            $history->inventory_id = $inventory->id;
+            $history->save();
+            
             $inventory->active = 0;
             $inventory->save();
+
         }
         return redirect()->route('inventory.index')
             ->with('success', 'El registro del inventario fue desactivado');
