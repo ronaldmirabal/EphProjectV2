@@ -33,7 +33,6 @@ class InventoryController extends Controller
     public function index()
     {
         $inventories = Inventory::with('people','area','brand','typeproduct')
-        ->where('active', '=', true)
         ->orderby('inventories.id','desc')->get();
         return view('inventory.index', compact('inventories'))
             ->with('i', (request()->input('page', 1) - 1));

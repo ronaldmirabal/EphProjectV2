@@ -59,7 +59,7 @@
                                             <th>Asignada</th>
                                             <th>Marca</th>
                                             <th>Area</th>
-                                            
+                                            <th>Estado</th>
     
                                             <th></th>
                                         </tr>
@@ -76,7 +76,13 @@
                                                 <td>{{ $inventory->people->first_name. " ".$inventory->people->last_name}}</td>
                                                 <td>{{ $inventory->brand->name }}</td>
                                                 <td>{{ $inventory->area->name}}</td>
-                                                
+                                                <td>
+                                                    @if($inventory->active == true)
+                                                        <span class="badge badge-success">Activo</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Inactivo</span>
+                                                    @endif
+                                                </td>
     
                                                 <td>
                                                     
