@@ -28,6 +28,13 @@
             {!! $errors->first('type_people_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
+        <div class="form-group">
+            {{ Form::label('Cargo') }}
+            {{ Form::select('position_id',$positions, $people->position_id, ['class' => 'form-control' . ($errors->has('position_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Cargo']) }}
+            {!! $errors->first('position_id', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
+
+
     </div>
     <div class="box-footer mt20">
         <br/>

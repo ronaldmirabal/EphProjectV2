@@ -60,6 +60,7 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('people.index') }}">{{ __('Personal') }}</a>
                                 <a class="dropdown-item" href="{{ route('type-people.index') }}">{{ __('Tipo de Personal') }}</a>
+                                <a class="dropdown-item" href="{{ route('position.index') }}">{{ __('Cargos') }}</a>
                             </div>
                         </li>
 

@@ -43,7 +43,7 @@
 										<th>Email</th>
 										<th>Telefono</th>
 										<th>Tipo</th>
-
+                                        <th>Cargo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -58,7 +58,9 @@
 											<td>
                                                 {{ $people->typePeople->name }}
                                             </td>
-
+                                            <td>
+                                                {{ $people->position->name }}
+                                            </td>
                                             <td>
                                                 <form action="{{ route('people.destroy',$people->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('people.show',$people->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>

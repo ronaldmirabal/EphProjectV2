@@ -16,7 +16,7 @@
                         <span class="card-title">Create Position</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('positions.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('position.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
                             @include('position.form')

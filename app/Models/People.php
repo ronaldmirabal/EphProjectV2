@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $created_at
  * @property $updated_at
  * @property $type_people_id
+ * @property $position_id
  *
  * @property TypePeople $typePeople
  * @package App
@@ -31,6 +32,7 @@ class People extends Model
 		'phone' => '',
     'active' => '',
 		'type_people_id' => 'required',
+    'position_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -40,7 +42,7 @@ class People extends Model
      *
      * @var array
      */
-    protected $fillable = ['first_name','last_name','email','phone','type_people_id'];
+    protected $fillable = ['first_name','last_name','email','phone','type_people_id', 'position_id'];
 
 
     /**
@@ -51,5 +53,13 @@ class People extends Model
         return $this->hasOne('App\Models\TypePeople', 'id', 'type_people_id');
     }
     
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function position()
+    {
+        return $this->hasOne('App\Models\Position', 'id', 'position_id');
+    }
 
 }

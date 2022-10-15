@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\People;
+use App\Models\Position;
 use App\Models\TypePeople;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        $peoples = People::with('typePeople')
+        $peoples = People::with('typePeople','position')
         ->orderBy('peoples.id', 'desc')->get(); 
 
 
@@ -36,7 +37,8 @@ class PeopleController extends Controller
     {
         $people = new People();
         $typepeoples = TypePeople::pluck('name', 'id');
-        return view('people.create', compact('people', 'typepeoples'));
+        $positions = Position::pluck('name', 'id');
+        return view('people.create', compact('people', 'typepeoples', 'positions'));
     }
 
     /**
@@ -78,7 +80,8 @@ class PeopleController extends Controller
     {
         $people = People::find($id);
         $typepeoples = TypePeople::pluck('name', 'id');
-        return view('people.edit', compact('people','typepeoples'));
+        $positions = Position::pluck('name', 'id');
+        return view('people.edit', compact('people','typepeoples', 'positions'));
     }
 
     /**

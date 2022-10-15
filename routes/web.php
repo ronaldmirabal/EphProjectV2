@@ -28,6 +28,7 @@ Route::resource('loan', App\Http\Controllers\LoanController::class)->middleware(
 Route::resource('people', App\Http\Controllers\PeopleController::class)->middleware('auth');
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
 Route::resource('brands', App\Http\Controllers\BrandController::class)->middleware('auth');
+Route::resource('position', App\Http\Controllers\PositionController::class)->middleware('auth');
 Route::resource('type-products', App\Http\Controllers\TypeProductController::class)->middleware('auth');
 Route::resource('inventory-transfer', App\Http\Controllers\InventoryTransferController::class)->middleware('auth');
 Route::resource('classroom', App\Http\Controllers\ClassroomController::class)->middleware('auth');
