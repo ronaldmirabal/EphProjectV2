@@ -48,21 +48,10 @@ class PositionController extends Controller
         $position = Position::create($request->all());
 
         return redirect()->route('position.index')
-            ->with('success', 'Position created successfully.');
+            ->with('success', 'El cargo fue creado.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $position = Position::find($id);
-
-        return view('position.show', compact('position'));
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -91,7 +80,7 @@ class PositionController extends Controller
         $position->update($request->all());
 
         return redirect()->route('position.index')
-            ->with('success', 'Position updated successfully');
+            ->with('success', 'El cargo fue actualizado.');
     }
 
     /**
@@ -104,6 +93,6 @@ class PositionController extends Controller
         $position = Position::find($id)->delete();
 
         return redirect()->route('position.index')
-            ->with('success', 'Position deleted successfully');
+            ->with('success', 'El cargo fue eliminado.');
     }
 }

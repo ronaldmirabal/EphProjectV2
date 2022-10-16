@@ -92,12 +92,14 @@ th {
             <tr>
                 <th>#Id</th>
                 <th>Tipo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Color</th>
                 <th>Serial</th>
                 <th>Noplaca</th>
                 <th>Descripción</th>
                 <th>Asignada</th>
-                <th>Marca</th>
-                <th>Modelo</th>
+               
                 <th>Área</th>
             </tr>
         </thead>
@@ -106,12 +108,14 @@ th {
                 <tr>
                     <td>{{ $inventory->id }}</td>
                     <td>{{ $inventory->typeproduct->name }}</td>
+                    <td>{{ $inventory->brand->name }}</td>
+                    <td>{{ $inventory->model }}</td>
+                    <td>{{ $inventory->color }}</td>
                     <td>{{ $inventory->serial }}</td>
                     <td>{{ $inventory->noplaca }}</td>
                     <td>{{ $inventory->description }}</td>
                     <td>{{ $inventory->people->first_name. " ".$inventory->people->last_name}}</td>
-                    <td>{{ $inventory->brand->name }}</td>
-                    <td>{{ $inventory->model }}</td>
+                    
                     <td>{{ $inventory->area->name}}</td>
                 </tr>
             @endforeach

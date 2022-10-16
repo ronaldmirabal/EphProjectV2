@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('template_title')
-    Position
+@section('title')
+    Cargos
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Position') }}
+                                {{ __('Cargos') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('position.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Crear nuevo') }}
                                 </a>
                               </div>
                         </div>
@@ -34,9 +34,9 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
+                                        <th>Id</th>
                                         
-										<th>Name</th>
+										<th>Nombre del Cargo</th>
 
                                         <th></th>
                                     </tr>
@@ -44,13 +44,12 @@
                                 <tbody>
                                     @foreach ($positions as $position)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td>{{ $position->id }}</td>
                                             
 											<td>{{ $position->name }}</td>
 
                                             <td>
                                                 <form action="{{ route('position.destroy',$position->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('position.show',$position->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('position.edit',$position->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                     @csrf
                                                     @method('DELETE')

@@ -24,7 +24,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
