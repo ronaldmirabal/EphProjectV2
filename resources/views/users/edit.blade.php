@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Crear Nuevo Usuario
+Editar Usuario
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@ Crear Nuevo Usuario
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Crear Nuevo Usuario</span>
+                        <span class="card-title">Editar Usuario</span>
                     </div>
                     <div class="card-body">
                             @csrf
@@ -21,6 +21,8 @@ Crear Nuevo Usuario
                             <div class="box box-info padding-1">
                                 <div class="box-body">
                                     
+                                {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+                                
                                     <div class="form-group">
                                         {{ Form::label('Nombre Completo') }}
                                         {{ Form::text('name', $user->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
@@ -40,17 +42,9 @@ Crear Nuevo Usuario
                                     </div>
                             
                                     <div class="form-group">
-                                        {!! Form::model($user, ['route' => ['users.update', $user], 'method' => 'put']) !!}
-                                        @foreach ($roles as $role)
-                                            <div>
-                                                <label>
-                                                {!! Form::checkbox('roles[]', $role->id, null, ['class'=> 'mr-1'])!!}
-                                                {{$role->name}}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                       {!! Form::close() !!}
-                                    </div>
+                                    <strong>Asignar un Rol:</strong>
+                                    {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                                </div>
                             
                                 </div>
                                 <div class="box-footer mt20">

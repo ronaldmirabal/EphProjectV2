@@ -59,5 +59,6 @@ Route::post('/event/update/{event}', [App\Http\Controllers\EventController::clas
 
 Route::group(['middleware' => ['auth']], function() {
     //Route::resource('roles', RoleController::class);
+    Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('users', App\Http\Controllers\UserController::class);
 });

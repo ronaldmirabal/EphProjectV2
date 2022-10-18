@@ -17,7 +17,8 @@ class InventoryExport implements FromCollection, ShouldAutoSize, WithMapping, Wi
     public function collection()
     {
 
-        return Inventory::with('people','area','brand','typeproduct')->get();
+        return Inventory::with('people','area','brand','typeproduct')
+        ->where('active', '=', true)->get();
     }
 
     public function registerEvents(): array
