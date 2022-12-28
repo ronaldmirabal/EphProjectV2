@@ -24,6 +24,7 @@ Auth::routes();
 //Route::resource('event', App\Http\Controllers\EventController::class)->middleware('auth');
 
 Route::resource('type-people', App\Http\Controllers\TypePeopleController::class)->middleware('auth');
+Route::resource('withdrawal-list', App\Http\Controllers\WithdrawalListController::class)->middleware('auth');
 Route::resource('loan', App\Http\Controllers\LoanController::class)->middleware('auth');
 Route::resource('people', App\Http\Controllers\PeopleController::class)->middleware('auth');
 Route::resource('areas', App\Http\Controllers\AreaController::class)->middleware('auth');
