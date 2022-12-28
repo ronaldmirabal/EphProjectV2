@@ -31,6 +31,9 @@ class Brand extends Model
      */
     protected $fillable = ['name'];
 
-
+    public function inventory()
+    {
+        return $this->belongsTo(inventory::class);
+    }
 
 }

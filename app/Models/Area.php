@@ -30,7 +30,11 @@ class Area extends Model
      * @var array
      */
     protected $fillable = ['name'];
-
+    
+    public function inventory()
+    {
+        return $this->belongsTo(inventory::class);
+    }
 
 
 }

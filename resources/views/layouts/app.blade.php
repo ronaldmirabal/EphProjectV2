@@ -72,6 +72,7 @@
                                 <a class="dropdown-item" href="{{ route('inventory.index') }}">{{ __('Inventario') }}</a>
                                 <a class="dropdown-item" href="{{ route('inventory-transfer.index') }}">{{ __('Transferencia de Inventario') }}</a>
                                 <a class="dropdown-item" href="{{ route('loan.index') }}">{{ __('Prestamos de Inventario') }}</a>
+                                <a class="dropdown-item" href="{{ route('remove-inventory.index') }}">{{ __('Retirar Equipo') }}</a>
                                 <a class="dropdown-item" href="{{ route('withdrawal-list.index') }}">{{ __('Lista de detalle') }}</a>
                                 <a class="dropdown-item" href="{{ route('brands.index') }}">{{ __('Marcas') }}</a>
                                 <a class="dropdown-item" href="{{ route('areas.index') }}">{{ __('Áreas') }}</a>

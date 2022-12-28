@@ -63,4 +63,9 @@ class Inventory extends Model
     {
       return $this->hasOne('App\Models\TypeProduct', 'id','type_product_id');
     }
+
+    public function removeInventory()
+    {
+        return $this->belongsTo(RemoveInventory::class);
+    }
 }
