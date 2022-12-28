@@ -34,7 +34,7 @@ class RemoveInventory extends Model
     protected $fillable = ['inventory_id','description','withdrawallist_id','user_id', 'date'];
 
     public function withdrawallist(){
-        return $this->hasOne('App\Models\withdrawallist', 'id','withdrawallist_id');
+        return $this->hasOne('App\Models\WithdrawalList', 'id','withdrawallist_id');
     }
     public function inventories()
     {
