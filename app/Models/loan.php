@@ -41,7 +41,7 @@ class loan extends Model
 
     public function inventories()
     {
-        return $this->hasOne(Inventory::class, 'loans_details', 'loans_id', 'inventory_id');
+        return $this->belongsToMany(Inventory::class, 'loans_details', 'loans_id', 'inventory_id');
     }
 
 }
