@@ -99,7 +99,7 @@ new Chart(ctx2, {
                     tooltip: {
                         callbacks: {
                             title: function(context) {
-                                return `Año ${datasets[context.datasetIndex].etiqueta}`;
+                                return `Año ${datasets[context.datasetIndex]}`;
                             },
                             label: function(context) {
                                 return `Artículos: ${context.raw.toLocaleString()}`;
