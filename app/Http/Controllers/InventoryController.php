@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Facade\FlareClient\Http\Response;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -113,6 +114,29 @@ class InventoryController extends Controller
     {
         $categoriasExcluidas = ['Teclado', 'CD-ROOM','BATERIA','AUDIFONO'];
 
+        $currentDate = Carbon::now();
+        $endDate = $currentDate->copy()->addYears(3);
+        $quarters = [];
+        $quarterStart = $currentDate->copy()->startOfQuarter();
+
+         // Generar todos los trimestres dentro del rango de 3 años
+         while ($quarterStart->lessThan($endDate)) {
+            $quarterEnd = $quarterStart->copy()->endOfQuarter();
+
+            // Obtener el conteo de artículos para el trimestre actual
+            $totalItems = Inventory::where('created_at', '<=', $quarterEnd)
+            ->count();
+
+            $quarters[] = [
+                'quarter' => 'Q' . $quarterStart->quarter . ' ' . $quarterStart->year,
+                'start_date' => $quarterStart->format('Y-m-d'),
+                'end_date' => $quarterEnd->format('Y-m-d'),
+                'total_items' => $totalItems,
+            ];
+
+            $quarterStart->addQuarter();
+        }
+
         $inventario = Inventory::with('typeproduct')->selectRaw('type_products.name as tipo, COUNT(*) as cantidad, SUM(stock) as total_stock')
         ->join('type_products', 'inventories.type_product_id', '=', 'type_products.id')
         ->whereNotIn('type_products.name', $categoriasExcluidas)
@@ -151,7 +175,7 @@ class InventoryController extends Controller
         ];
 
 
-        return view('inventory.infoinventory', compact('inventario','chartData'));
+        return view('inventory.infoinventory', compact('inventario','chartData','quarters'));
     }
 
     /**

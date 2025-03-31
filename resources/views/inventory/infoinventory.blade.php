@@ -8,6 +8,9 @@
     <div style="width: 800px; height: 500px;" class="chart-container">
         <canvas id="myChart"></canvas>
     </div>
+    <div class="chart-container" style="position: relative; height:400px; width:100%">
+        <canvas id="quarterlyChart"></canvas>
+    </div>
 
 @endsection
 @section('js')
@@ -16,6 +19,11 @@
        document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('myChart').getContext('2d');
         const chartData = @json($chartData);
+        const quarters = @json($quarters);
+
+        // Preparar datos para el gráfico
+        const labels = quarters.map(q => q.quarter);
+        const data = quarters.map(q => q.total_items);
         const inventoryChart = new Chart(ctx, {
             type: 'pie', // o 'doughnut' para gráfico de dona
             data: {
@@ -62,6 +70,57 @@
                 }
             }
         });
+
+
+// Crear gráfico
+const ctx2 = document.getElementById('quarterlyChart').getContext('2d');
+new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Artículos en Inventario',
+            data: data,
+            backgroundColor: quarters.map((q, i) =>
+                `hsl(${i * 360 / quarters.length}, 70%, 50%)`),
+            borderColor: quarters.map((q, i) =>
+                `hsl(${i * 360 / quarters.length}, 70%, 30%)`),
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `Artículos: ${context.raw.toLocaleString()}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return value.toLocaleString();
+                    }
+                }
+            }
+        }
+    }
+});
+
+
+
+
+
+
     });
     </script>
+
 @endsection
