@@ -116,6 +116,7 @@ class InventoryController extends Controller
         $inventario = Inventory::with('typeproduct')->selectRaw('type_products.name as tipo, COUNT(*) as cantidad, SUM(stock) as total_stock')
         ->join('type_products', 'inventories.type_product_id', '=', 'type_products.id')
         ->whereNotIn('type_products.name', $categoriasExcluidas)
+        ->where('inventories.active', true)
         ->groupBy('type_products.name')
         ->get();
 
