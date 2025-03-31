@@ -115,23 +115,26 @@ class InventoryController extends Controller
         $categoriasExcluidas = ['Teclado', 'CD-ROOM','BATERIA','AUDIFONO'];
 
         $currentDate = Carbon::now();
-        $endDate = $currentDate->copy()->addYears(3);
+        $startDate = $currentDate->copy()->subYears(3)->startOfYear();
         $quarters = [];
-        $quarterStart = $currentDate->copy()->startOfQuarter();
+        $quarterStart = $startDate->copy();
 
          // Generar todos los trimestres dentro del rango de 3 años
-         while ($quarterStart->lessThan($endDate)) {
+         while ($quarterStart->lessThan($currentDate)) {
             $quarterEnd = $quarterStart->copy()->endOfQuarter();
 
-            // Obtener el conteo de artículos para el trimestre actual
-            $totalItems = Inventory::where('created_at', '<=', $quarterEnd)
-            ->count();
+            $totalItems = Inventory::whereBetween('created_at', [
+                $quarterStart,
+                $quarterEnd
+            ])->count();
 
             $quarters[] = [
                 'quarter' => 'Q' . $quarterStart->quarter . ' ' . $quarterStart->year,
                 'start_date' => $quarterStart->format('Y-m-d'),
                 'end_date' => $quarterEnd->format('Y-m-d'),
                 'total_items' => $totalItems,
+                'year' => $quarterStart->year,
+                'quarter_number' => $quarterStart->quarter
             ];
 
             $quarterStart->addQuarter();

@@ -71,49 +71,63 @@
             }
         });
 
+        const years = [...new Set(quarters.map(q => q.year))].sort();
+        const datasets = years.map(year => {
+            const yearQuarters = quarters.filter(q => q.year === year);
+            return {
+                label: year,
+                data: yearQuarters.map(q => q.total_items),
+                backgroundColor: `hsl(${year % 360}, 70%, 50%)`,
+                borderColor: `hsl(${year % 360}, 70%, 30%)`,
+                borderWidth: 1
+            };
+        });
 
+        // Etiquetas (Q1, Q2, Q3, Q4)
+        const etiqueta = ['Q1', 'Q2', 'Q3', 'Q4'];
 // Crear gráfico
 const ctx2 = document.getElementById('quarterlyChart').getContext('2d');
 new Chart(ctx2, {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Artículos en Inventario',
-            data: data,
-            backgroundColor: quarters.map((q, i) =>
-                `hsl(${i * 360 / quarters.length}, 70%, 50%)`),
-            borderColor: quarters.map((q, i) =>
-                `hsl(${i * 360 / quarters.length}, 70%, 30%)`),
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false
+            type: 'bar',
+            data: {
+                labels: etiqueta,
+                datasets: datasets
             },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `Artículos: ${context.raw.toLocaleString()}`;
+            options: {
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return `Año ${datasets[context.datasetIndex].etiqueta}`;
+                            },
+                            label: function(context) {
+                                return `Artículos: ${context.raw.toLocaleString()}`;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString();
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Trimestres'
+                        }
                     }
                 }
             }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    callback: function(value) {
-                        return value.toLocaleString();
-                    }
-                }
-            }
-        }
-    }
-});
+        });
 
 
 
