@@ -40,7 +40,7 @@ class InventoryController extends Controller
 
 
 
-  
+
     public function pdf()
     {
         $inventories = Inventory::with('people','area','brand','typeproduct')
@@ -49,6 +49,108 @@ class InventoryController extends Controller
        $pdf = Pdf::loadView('inventory.pdf', ['inventories'=>$inventories, 'universities'=>$universities])->setPaper('a4', 'landscape');
        return $pdf->download('inventory.pdf');
     //return view('inventory.pdf', compact('inventories','universities'));
+    }
+
+    protected function generateChartColors($count)
+    {
+        $baseColors = [
+            '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
+            '#e74a3b', '#858796', '#5a5c69', '#00aaff'
+        ];
+
+        $colors = [];
+        for ($i = 0; $i < $count; $i++) {
+            $colors[] = $baseColors[$i % count($baseColors)];
+        }
+
+        return $colors;
+    }
+
+    public function graphic()
+    {
+        $categoriasExcluidas = ['Teclado', 'CD-ROOM','BATERIA','AUDIFONO'];
+
+        $inventario = Inventory::selectRaw('type_product_id, COUNT(*) as cantidad, SUM(stock) as total_stock')
+            ->whereNotIn('type_product_id', $categoriasExcluidas)
+            ->groupBy('type_product_id')
+            ->get();
+
+         // Calcular porcentajes
+         $total = $inventario->sum('total_stock');
+         $inventario = $inventario->map(function ($item) use ($total) {
+             $item->porcentaje = $total > 0 ? round(($item->total_stock / $total) * 100, 2) : 0;
+             return $item;
+         });
+
+         $labels = $inventario->pluck('type_product_id')->toArray();
+        $data = $inventario->pluck('total_stock')->toArray();
+         // Generar datos para el gráfico
+         $chartData = [
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Stock por Categoría',
+                    'data' => $data, // Asegurar que esto es un array
+                    'backgroundColor' => [
+                        '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
+                        '#e74a3b', '#858796', '#5a5c69', '#00aaff'
+                    ],
+                    'borderColor' => '#fff',
+                    'borderWidth' => 1
+                ]
+            ]
+        ];
+
+        $pdf = Pdf::loadView('inventory.graphic',compact('inventario', 'chartData'));
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->setOption(['isPhpEnabled' => true, 'isRemoteEnabled' => true]);
+
+        return $pdf->stream('inventory.graphic');
+    }
+
+
+    public function infoinventory()
+    {
+        $categoriasExcluidas = ['Teclado', 'CD-ROOM','BATERIA','AUDIFONO'];
+
+        $inventario = Inventory::with('typeproduct')->selectRaw('type_products.name as tipo, COUNT(*) as cantidad, SUM(stock) as total_stock')
+        ->join('type_products', 'inventories.type_product_id', '=', 'type_products.id')
+        ->whereNotIn('type_products.name', $categoriasExcluidas)
+        ->groupBy('type_products.name')
+        ->get();
+
+         // Calcular porcentajes
+         $total = $inventario->sum('total_stock');
+           // Calcular porcentajes y preparar labels
+            $labelsWithPercentage = $inventario->map(function ($item) use ($total) {
+                $percentage = $total > 0 ? round(($item->total_stock / $total) * 100, 2) : 0;
+                return "{$item->tipo} ({$percentage}%)";
+            })->toArray();
+
+
+        $data = $inventario->pluck('total_stock')->toArray();
+         // Generar datos para el gráfico
+         $chartData = [
+            'labels' => $labelsWithPercentage,
+            'counts' => $inventario->pluck('count')->toArray(), // Cantidad de items
+            'stocks' => $inventario->pluck('total_stock')->toArray(), // Stock total
+            'datasets' => [
+                [
+                    'label' => 'Stock por Categoría',
+                    'data' => $data, // Asegurar que esto es un array
+                    'backgroundColor' => [
+                        '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
+                        '#e74a3b', '#858796', '#5a5c69', '#00aaff'
+                    ],
+                    'borderColor' => '#fff',
+                    'borderWidth' => 1
+                ]
+                ],
+                'percentages' => $inventario->pluck('porcentage')->toArray()
+        ];
+
+
+        return view('inventory.infoinventory', compact('inventario','chartData'));
     }
 
     /**
@@ -73,7 +175,7 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function export() 
+    public function export()
     {
         return Excel::download(new InventoryExport, 'inventario.xlsx');
     }
@@ -86,20 +188,20 @@ class InventoryController extends Controller
        $term = $request->get('term');
 
        $querys = People::where('first_name', 'LIKE', '%' . $term . '%')->get();
-   
+
        $data = [];
-   
+
        foreach ($querys as $querys) {
            $data[] = [
                'label' => $querys->first_name. " ".$querys->last_name ,
                'value' => $querys->id
            ];
        }
-   
+
        return $data;
     }
 
-   
+
     /**
      * Store a newly created resource in storage.
      *
@@ -114,7 +216,7 @@ class InventoryController extends Controller
             $selectNoPlaca = Inventory::select('noplaca')
             ->where('noplaca','=',$request->noplaca)->get()->count();
         }
-        
+
         if($selectNoPlaca <= 0){
             $inventory = Inventory::create($request->all());
             $history = new inventory_history();
@@ -130,7 +232,7 @@ class InventoryController extends Controller
             return redirect()->back()->withInput();
         }
 
-       
+
     }
 
     /**
@@ -189,7 +291,7 @@ class InventoryController extends Controller
      */
     public function printlabelSelect(Request $request)
     {
-        $inventory = Inventory::find($id);
+        $inventory = Inventory::find($request->id);
         $areas = Area::pluck('name', 'id');
         $typeproducts = TypeProduct::pluck('name', 'id');
         $qrcode = base64_encode(QrCode::format('svg')->size(55)->errorCorrection('H')->generate($inventory->noplaca));
@@ -214,7 +316,7 @@ class InventoryController extends Controller
             ->with('success', 'El registro del inventario fue actualizado');
     }
 
- 
+
     public function delete($id)
     {
         $inventory = Inventory::find($id);
@@ -225,7 +327,7 @@ class InventoryController extends Controller
             $history->updated_at = now();
             $history->inventory_id = $inventory->id;
             $history->save();
-            
+
             $inventory->active = 0;
             $inventory->save();
 

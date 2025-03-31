@@ -27,6 +27,9 @@
                                 <a href="{{ route('inventory.pdf') }}" class="btn btn-danger btn-sm ">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </a>
+                                <a href="{{ route('inventory.infoinventory') }}" class="btn btn-danger btn-sm ">
+                                    <i class="fas fa-chart-pie"></i>
+                                </a>
                                 <a href="{{ route('export') }}" class="btn btn-success btn-sm ">
                                     <i class="fa-solid fa-file-csv"></i>
                                 </a>
@@ -34,7 +37,7 @@
                                 <a id="printlabels" class="btn btn-primary btn-sm " >
                                     <i class="fa-solid fa-qrcode"></i>
                                 </a>
-                               
+
                               </div>
                         </div>
                     </div>
@@ -60,7 +63,7 @@
                                             <th>Marca</th>
                                             <th>Area</th>
                                             <th>Estado</th>
-    
+
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -83,12 +86,12 @@
                                                         <span class="badge badge-danger">Inactivo</span>
                                                     @endif
                                                 </td>
-    
+
                                                 <td>
-                                                    
-                                                                               
-    
-                                                        
+
+
+
+
                                                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                                                 ...
                                                             </a>
@@ -96,22 +99,22 @@
                                                                 <a class="dropdown-item" href="{{ route('inventory.show',$inventory->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>
                                                                 <a class="dropdown-item" href="{{ route('inventory.edit',$inventory->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
                                                                 <a href="/inventory/delete/{{$inventory->id}}" class="dropdown-item"><i class="fa fa-fw fa-trash"></i>Delete</a>
-            
-                                       
+
+
                                                                 <a class="dropdown-item" href="{{ route('printlabel.pdf', $inventory->id) }}"><i class="fa fa-fw fa-print"></i>{{ __('Imprimir Label') }}</a>
-                                                                
+
                                                             </div>
-                                                        
-              
-                                                        
-    
+
+
+
+
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </form>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -169,13 +172,13 @@ $('.delete-confirm').on('click', function (event) {
     $('#tabla tbody').on('click', 'tr', function () {
         $(this).toggleClass('selected');
     });
- 
+
     $('#printlabels').click(function () {
         alert(table.rows('.selected').data().length + ' row(s) selected');
         for (var i = 0; i < table.rows('.selected').data().length; i++) {
             var selectArray = table.rows('.selected').data()[i][0];
             console.log(selectArray);
-            
+
         }
     });
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InventoryController;
 use App\Models\Inventory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::get('/autocompleteInventory', [App\Http\Controllers\InventoryTransferCont
 Route::get('/getPerson', [App\Http\Controllers\InventoryTransferController::class, 'getPerson'])->name('getPerson');
 Route::get('inventory/delete/{id}', [App\Http\Controllers\InventoryController::class, 'delete']);
 Route::get('pdf', [App\Http\Controllers\InventoryController::class, 'pdf'])->name('inventory.pdf');
+Route::get('graphic', [App\Http\Controllers\InventoryController::class, 'graphic'])->name('inventory.graphic');
+Route::get('infoinventory', [App\Http\Controllers\InventoryController::class, 'infoinventory'])->name('inventory.infoinventory');
 Route::get('inventory-transfer/pdf/{id}', [App\Http\Controllers\InventoryTransferController::class, 'pdf'])->name('transfer.pdf');
 Route::get('inventory/printlabel/{id}', [App\Http\Controllers\InventoryController::class, 'printlabel'])->name('printlabel.pdf');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
