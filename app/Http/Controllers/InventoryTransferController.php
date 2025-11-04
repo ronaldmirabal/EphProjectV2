@@ -55,7 +55,7 @@ class InventoryTransferController extends Controller
             $inventoryTransfer = InventoryTransfer::create($request->all());
 
             $history = inventory_history::create([
-                'description' => "Se realizo un traspaso de inventario de la persona: ".$request->person_old. " a ".$request->person_new,
+                'description' => "Se realizo un traspaso de inventario de la persona: " . $request->person_old . " a " . $request->person_new,
                 'inventory_id' => $request->inventory_id,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -67,13 +67,11 @@ class InventoryTransferController extends Controller
 
             DB::commit();
             return redirect()->route('inventory-transfer.index')
-            ->with('success', 'La transferencia de inventario se realizo con exito.');
+                ->with('success', 'La transferencia de inventario se realizo con exito.');
         } catch (\Throwable $e) {
             DB::rollback();
             throw $e;
         }
-
-        
     }
 
 
@@ -83,14 +81,14 @@ class InventoryTransferController extends Controller
         try {
             $term = $request->get('term');
             $querys = People::where('first_name', 'LIKE', '%' . $term . '%')
-            ->orWhere('last_name', 'LIKE', '%' . $term . '%')
-            ->get();
+                ->orWhere('last_name', 'LIKE', '%' . $term . '%')
+                ->get();
             $data = [];
             foreach ($querys as $querys) {
-            $data[] = [
-               'label' => $querys->first_name. " ".$querys->last_name ,
-               'value' => $querys->id
-            ];
+                $data[] = [
+                    'label' => $querys->first_name . " " . $querys->last_name,
+                    'value' => $querys->id
+                ];
             }
             return $data;
         } catch (\Throwable $th) {
@@ -102,18 +100,18 @@ class InventoryTransferController extends Controller
     {
         $transfer = InventoryTransfer::find($id);
         $inventory = Inventory::find($transfer->inventory_id);
-        $pdf = Pdf::loadView('inventory-transfer.pdf', ['transfer'=>$transfer, 'inventory'=>$inventory])->setPaper('letter');
+        $pdf = Pdf::loadView('inventory-transfer.pdf', ['transfer' => $transfer, 'inventory' => $inventory])->setPaper('letter');
         //return $pdf->download('inventory-transfer.pdf');
         return Pdf::loadView('inventory-transfer.pdf', compact('transfer', 'inventory'))->setPaper('letter', 'portrait')->stream('archivo.pdf');
     }
-   
+
     public function getPerson(Request $request)
     {
-        $querys = People::where('id','=',$request->id)->get();
+        $querys = People::where('id', '=', $request->id)->get();
         $data = [];
         foreach ($querys as $querys) {
             $data[] = [
-                'fullname' => $querys->first_name. " ". $querys->last_name,
+                'fullname' => $querys->first_name . " " . $querys->last_name,
             ];
         }
         echo json_encode($data);
@@ -124,16 +122,17 @@ class InventoryTransferController extends Controller
     {
         try {
             $term = $request->get('term');
-            $querys = Inventory::where('noplaca','LIKE', '%' . $term . '%')
-            ->orWhere('description' ,'LIKE', '%' . $term . '%')
-            ->get();
+            $querys = Inventory::where('noplaca', 'LIKE', '%' . $term . '%')
+                ->orWhere('serial', 'LIKE', '%' . $term . '%')
+                ->orWhere('description', 'LIKE', '%' . $term . '%')
+                ->get();
             $data = [];
             foreach ($querys as $querys) {
-            $data[] = [
-               'label' => $querys->noplaca,
-               'value' => $querys->id,
-               'people_id'=> $querys->people_id
-            ];
+                $data[] = [
+                    'label' => $querys->noplaca ?: $querys->serial,
+                    'value' => $querys->id,
+                    'people_id' => $querys->people_id
+                ];
             }
             return $data;
         } catch (\Throwable $th) {
