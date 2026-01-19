@@ -59,6 +59,7 @@
                                             <th>Serial</th>
                                             <th>Descripcion</th>
                                             <th>Noplaca</th>
+                                            <th>BienesNacionales</th>
                                             <th>Asignada</th>
                                             <th>Marca</th>
                                             <th>Area</th>
@@ -76,6 +77,7 @@
                                                 <td>{{ $inventory->serial }}</td>
                                                 <td>{{ $inventory->description }}</td>
                                                 <td>{{ $inventory->noplaca }}</td>
+                                                <td>{{ $inventory->bienesnacionales }}</td>
                                                 <td>{{ $inventory->people->first_name. " ".$inventory->people->last_name}}</td>
                                                 <td>{{ $inventory->brand->name }}</td>
                                                 <td>{{ $inventory->area->name}}</td>

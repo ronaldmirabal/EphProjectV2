@@ -1,15 +1,15 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-        
-    
+
+
             <div classs="form-group">
                 {{ Form::label('people_id',__('Asignar Persona')) }}
                 <input class="typeahead form-control" id="autocompletePeople" type="text" placeholder="Asignar a una Persona">
                 {{ Form::hidden('people_id', $inventory->people_id, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => 'people_id']) }}
                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
             </div>
-  
-           
+
+
         <div class="form-group">
             {{ Form::hidden('user_id', $inventory->user_id, ['class' => 'form-control' . ($errors->has('user_id') ? ' is-invalid' : ''), 'placeholder' => 'user_id']) }}
         </div>
@@ -24,7 +24,7 @@
             {{ Form::select('type_product_id',$typeproducts, $inventory->type_product_id, ['class' => 'form-control' . ($errors->has('type_product_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Tipo']) }}
             {!! $errors->first('type_product_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-        
+
         <div class="form-group">
             {{ Form::label('Marca') }}
             {{ Form::select('brand_id',$brands, $inventory->brand_id, ['class' => 'form-control' . ($errors->has('brand_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Marca']) }}
@@ -51,6 +51,11 @@
             {{ Form::text('noplaca', $inventory->noplaca, ['class' => 'form-control' . ($errors->has('noplaca') ? ' is-invalid' : ''), 'placeholder' => 'Noplaca','maxlength'=> '20']) }}
             {!! $errors->first('noplaca', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+         <div class="form-group">
+            {{ Form::label('bienesnacionales') }}
+            {{ Form::text('bienesnacionales', $inventory->bienesnacionales, ['class' => 'form-control' . ($errors->has('bienesnacionales') ? ' is-invalid' : ''), 'placeholder' => 'Bienes Nacionales','maxlength'=> '20']) }}
+            {!! $errors->first('bienesnacionales', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
         <div class="form-group">
             {{ Form::label('color') }}
             {{ Form::text('color', $inventory->color, ['class' => 'form-control' . ($errors->has('color') ? ' is-invalid' : ''), 'placeholder' => 'Color','maxlength'=> '20']) }}
@@ -61,14 +66,14 @@
             {{ Form::text('size', $inventory->size, ['class' => 'form-control' . ($errors->has('size') ? ' is-invalid' : ''), 'placeholder' => 'Tamaño','maxlength'=> '20']) }}
             {!! $errors->first('size', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-       
-    
+
+
         <div class="form-group">
             {{ Form::label('Area') }}
             {{ Form::select('area_id',$areas, $inventory->area_id, ['class' => 'form-control' . ($errors->has('area_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar Área']) }}
             {!! $errors->first('area_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
-       
+
 
     </div>
     <div class="box-footer mt20">
@@ -93,7 +98,7 @@
         });
     },
     // Ejecutar cuando se seleccione un cliente
-    
+
     select: function (event, ui) {
           // Set selection
           $('#autocompletePeople').val(ui.item.label); // display the selected text

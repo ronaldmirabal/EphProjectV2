@@ -29,12 +29,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Inventory extends Model
 {
-    
+
     static $rules = [
 		'people_id' => 'required',
 		'brand_id' => 'required',
 		'area_id' => 'required',
-    'user_id' => 'required',
+        'user_id' => 'required',
 		'type_product_id' => 'required',
     ];
 
@@ -45,7 +45,7 @@ class Inventory extends Model
      *
      * @var array
      */
-    protected $fillable = ['stock','model','serial','description','noplaca','color','size','active','people_id','brand_id','area_id','type_product_id','user_id'];
+    protected $fillable = ['stock','model','serial','description','noplaca','color','size','active','people_id','brand_id','area_id','type_product_id','user_id', 'bienesnacionales'];
 
     public function brand()
     {

@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>Cantidad:</strong>
                             {{ $inventory->stock }}
@@ -39,6 +39,10 @@
                         <div class="form-group">
                             <strong>Noplaca:</strong>
                             {{ $inventory->noplaca }}
+                        </div>
+                        <div class="form-group">
+                            <strong>Bienes Nacionales:</strong>
+                            {{ $inventory->bienesnacionales }}
                         </div>
                         <div class="form-group">
                             <strong>Color:</strong>
@@ -109,10 +113,10 @@
                             </div>
                         </div>
 
-                        
-                        
-                    
-             
+
+
+
+
             </div>
         </div>
     </section>
