@@ -40,7 +40,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
+
 										<th>Empleado</th>
                                         <th>Fecha Estimada de Entrega</th>
                                         <th>Articulos Prestados</th>
@@ -52,7 +52,7 @@
                                     @foreach ($loans as $loan)
                                         <tr>
                                             <td>{{ $loan->id }}</td>
-                                            
+
 											<td>{{ $loan->people->first_name. " ".$loan->people->last_name }}</td>
                                             <td>{{ $loan->estimated_date}}</td>
                                             <td>
@@ -76,7 +76,7 @@
                                                     <a href="{{ route('loan.deliver',$loan->id) }}" class="btn btn-info btn-sm"><i class="fa fa-fw fa-handshake"></i> Entregar</a>
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
-                                                    
+                                                    <a class="btn btn-sm btn-success" href="{{ route('loan.print',$loan->id) }}"><i class="fa fa-fw fa-edit"></i> Imprimir</a>
                                                 </form>
                                             </td>
                                         </tr>

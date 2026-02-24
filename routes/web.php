@@ -54,6 +54,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('export', [App\Http\Controllers\InventoryController::class, 'export'])->name('export');
 Route::get('loan/deliver/{id}', [App\Http\Controllers\LoanController::class, 'deliver'])->name('loan.deliver');
+Route::get('loan/print/{id}', [App\Http\Controllers\LoanController::class, 'print'])->name('loan.print');
 Route::get('/event/filter/{id}', [App\Http\Controllers\EventController::class, 'filter']);
 
 Route::post('/event/add', [App\Http\Controllers\EventController::class, 'store'])->middleware('auth');

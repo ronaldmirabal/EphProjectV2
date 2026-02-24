@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\loan;
 use App\Models\loan_detail;
 use App\Models\People;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class LoanController extends Controller
@@ -23,6 +24,12 @@ class LoanController extends Controller
         ->orderby('loans.id','desc')->get();
         return view('loan.index', compact('loans'))
             ->with('i', (request()->input('page', 1) - 1));
+    }
+
+    public function print($id) {
+        $loan = Loan::with('people','user', 'inventories')
+        ->find($id);
+        return Pdf::loadView('loan.printLoan', compact('loan'))->setPaper('a4', 'portrait')->stream('archivo.pdf');;
     }
 
     /**
@@ -67,7 +74,7 @@ class LoanController extends Controller
             $loan = Loan::create($request->all());
             $products = $request->input('products', []);
             $descriptions = $request->input('descriptions', []);
-            for ($product=0; $product < count($products); $product++) { 
+            for ($product=0; $product < count($products); $product++) {
                 if($products[$product] != ''){
                     $detail = loan_detail::insert([
                         'loans_id' => $loan->id,
@@ -79,8 +86,8 @@ class LoanController extends Controller
         } catch (\Exception $th) {
             return $th->getMessage();
         }
-        
-        
+
+
         return redirect()->route('loan.index')
                 ->with('success', 'El registro del prestamo fue creado');
     }
@@ -94,7 +101,7 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-       
+
     }
 
     /**
@@ -105,12 +112,12 @@ class LoanController extends Controller
      */
     public function edit($id)
     {
-      
+
     }
 
     public function destroy($id)
     {
-       
+
     }
 
 
