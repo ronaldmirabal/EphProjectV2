@@ -124,78 +124,84 @@ class InventoryController extends Controller
 
     public function infoinventory()
     {
-         $categoriasExcluidas = ['Teclado', 'CD-ROOM', 'BATERIA', 'AUDIFONO'];
+        $categoriasExcluidas = ['Teclado', 'CD-ROOM', 'BATERIA', 'AUDIFONO'];
 
-    $currentDate = Carbon::now();
-    $startDate = $currentDate->copy()->subYears(3)->startOfYear();
-    $quarters = [];
+        $currentDate = Carbon::now();
+        $startDate = $currentDate->copy()->subYears(3)->startOfYear();
+        $quarters = [];
 
-    // Generar trimestres
-    $quarterStart = $startDate->copy();
+        // Generar trimestres
+        $quarterStart = $startDate->copy();
 
-    while ($quarterStart->lessThan($currentDate)) {
+        while ($quarterStart->lessThan($currentDate)) {
 
-        $quarterEnd = $quarterStart->copy()->endOfQuarter();
+            $quarterEnd = $quarterStart->copy()->endOfQuarter();
 
-        $totalItems = Inventory::whereBetween('created_at', [
-            $quarterStart,
-            $quarterEnd
-        ])->count();
+            $totalItems = Inventory::whereBetween('created_at', [
+                $quarterStart,
+                $quarterEnd
+            ])->count();
 
-        $quarters[] = [
-            'quarter' => 'Q' . $quarterStart->quarter . ' ' . $quarterStart->year,
-            'start_date' => $quarterStart->format('Y-m-d'),
-            'end_date' => $quarterEnd->format('Y-m-d'),
-            'total_items' => $totalItems,
-            'year' => $quarterStart->year,
-            'quarter_number' => $quarterStart->quarter
+            $quarters[] = [
+                'quarter' => 'Q' . $quarterStart->quarter . ' ' . $quarterStart->year,
+                'start_date' => $quarterStart->format('Y-m-d'),
+                'end_date' => $quarterEnd->format('Y-m-d'),
+                'total_items' => $totalItems,
+                'year' => $quarterStart->year,
+                'quarter_number' => $quarterStart->quarter
+            ];
+
+            $quarterStart->addQuarter();
+        }
+
+        // Inventario agrupado
+        $inventario = Inventory::with('typeproduct')
+            ->selectRaw('type_products.name as tipo, COUNT(*) as cantidad, SUM(stock) as total_stock')
+            ->join('type_products', 'inventories.type_product_id', '=', 'type_products.id')
+            ->whereNotIn('type_products.name', $categoriasExcluidas)
+            ->where('inventories.active', true)
+            ->groupBy('type_products.name')
+            ->get();
+
+        // Total general
+        $total = $inventario->sum('total_stock');
+
+        // Añadir porcentajes directamente
+        $inventario = $inventario->map(function ($item) use ($total) {
+            $item->porcentaje = $total > 0 ? round(($item->total_stock / $total) * 100, 2) : 0;
+            return $item;
+        });
+
+        // Labels del gráfico
+        $labelsWithPercentage = $inventario->map(fn($i) => "{$i->tipo} ({$i->porcentaje}%)");
+
+        // Datos del gráfico
+        $chartData = [
+            'labels' => $labelsWithPercentage->toArray(),
+            'counts' => $inventario->pluck('cantidad')->toArray(),
+            'stocks' => $inventario->pluck('total_stock')->toArray(),
+            'percentages' => $inventario->pluck('porcentaje')->toArray(),
+            'datasets' => [
+                [
+                    'label' => 'Stock por Categoría',
+                    'data' => $inventario->pluck('total_stock')->toArray(),
+                    'backgroundColor' => [
+                        '#4e73df',
+                        '#1cc88a',
+                        '#36b9cc',
+                        '#f6c23e',
+                        '#e74a3b',
+                        '#858796',
+                        '#5a5c69',
+                        '#00aaff'
+                    ],
+                    'borderColor' => '#fff',
+                    'borderWidth' => 1
+                ]
+            ]
         ];
 
-        $quarterStart->addQuarter();
-    }
-
-    // Inventario agrupado
-    $inventario = Inventory::with('typeproduct')
-        ->selectRaw('type_products.name as tipo, COUNT(*) as cantidad, SUM(stock) as total_stock')
-        ->join('type_products', 'inventories.type_product_id', '=', 'type_products.id')
-        ->whereNotIn('type_products.name', $categoriasExcluidas)
-        ->where('inventories.active', true)
-        ->groupBy('type_products.name')
-        ->get();
-
-    // Total general
-    $total = $inventario->sum('total_stock');
-
-    // Añadir porcentajes directamente
-    $inventario = $inventario->map(function ($item) use ($total) {
-        $item->porcentaje = $total > 0 ? round(($item->total_stock / $total) * 100, 2) : 0;
-        return $item;
-    });
-
-    // Labels del gráfico
-    $labelsWithPercentage = $inventario->map(fn($i) => "{$i->tipo} ({$i->porcentaje}%)");
-
-    // Datos del gráfico
-    $chartData = [
-        'labels' => $labelsWithPercentage->toArray(),
-        'counts' => $inventario->pluck('cantidad')->toArray(),
-        'stocks' => $inventario->pluck('total_stock')->toArray(),
-        'percentages' => $inventario->pluck('porcentaje')->toArray(),
-        'datasets' => [
-            [
-                'label' => 'Stock por Categoría',
-                'data' => $inventario->pluck('total_stock')->toArray(),
-                'backgroundColor' => [
-                    '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
-                    '#e74a3b', '#858796', '#5a5c69', '#00aaff'
-                ],
-                'borderColor' => '#fff',
-                'borderWidth' => 1
-            ]
-        ]
-    ];
-
-    return view('inventory.infoinventory', compact('inventario', 'chartData', 'quarters'));
+        return view('inventory.infoinventory', compact('inventario', 'chartData', 'quarters'));
     }
 
     /**
@@ -227,17 +233,11 @@ class InventoryController extends Controller
 
     public function autocompletePeople(Request $request)
     {
-        //return People::select('id','first_name')
-        //->where('first_name', 'like', "%{$request->term}%")
-        // ->pluck('first_name');
         $term = $request->get('term');
-
         $querys = People::where(function ($query) use ($term) {
-        $query->where('first_name', 'like', "%{$term}%")
-              ->orWhere('last_name', 'like', "%{$term}%");
-    })
-    ->where('active', true)
-    ->get();
+            $query->where('first_name', 'like', "%{$term}%")
+                ->orWhere('last_name', 'like', "%{$term}%");
+        })->where('active', true)->get();
 
         $data = [];
 
