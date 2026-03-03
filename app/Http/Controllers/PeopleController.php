@@ -21,7 +21,8 @@ class PeopleController extends Controller
     public function index()
     {
         $peoples = People::with('typePeople','position')
-        ->orderBy('peoples.id', 'desc')->get(); 
+        ->where('active', true)
+        ->orderBy('peoples.id', 'desc')->get();
 
 
         return view('people.index', compact('peoples'))
