@@ -234,10 +234,11 @@ class InventoryController extends Controller
     public function autocompletePeople(Request $request)
     {
         $term = $request->get('term');
-        $querys = People::where(function ($query) use ($term) {
+        $querys = People::where('active', 1)->where(function ($query) use ($term) {
             $query->where('first_name', 'like', "%{$term}%")
                 ->orWhere('last_name', 'like', "%{$term}%");
-        })->where('active', 1)->get();
+
+        })->get();
 
         $data = [];
 
