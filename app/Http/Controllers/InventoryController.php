@@ -237,7 +237,7 @@ class InventoryController extends Controller
         $querys = People::where(function ($query) use ($term) {
             $query->where('first_name', 'like', "%{$term}%")
                 ->orWhere('last_name', 'like', "%{$term}%");
-        })->where('active', true)->get();
+        })->where('active', 1)->get();
 
         $data = [];
 
