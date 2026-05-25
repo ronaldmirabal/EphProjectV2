@@ -23,24 +23,24 @@ class InventoryExport implements FromCollection, ShouldAutoSize, WithMapping, Wi
 
     public function registerEvents(): array
     {
-        
+
         $styleArray = [
             'font' => [
                 'bold' => true,
                 ]
         ];
-            
-        
-        
+
+
+
         return [
             AfterSheet::class    => function(AfterSheet $event) use ($styleArray)
             {
                 $cellRange = 'A1:L1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
                 $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray);
-           
 
-                $event->getSheet()->getDelegate()->getStyle('A1:G1')->applyFromArray($styleArray);						
+
+                $event->getSheet()->getDelegate()->getStyle('A1:G1')->applyFromArray($styleArray);
 
             },
         ];
@@ -53,6 +53,7 @@ class InventoryExport implements FromCollection, ShouldAutoSize, WithMapping, Wi
             $inventory->people->position->name,
             $inventory->area->name,
             $inventory->noplaca,
+            $inventory->bienesnacionales,
             $inventory->typeproduct->name,
             $inventory->color,
             $inventory->brand->name,
@@ -62,12 +63,13 @@ class InventoryExport implements FromCollection, ShouldAutoSize, WithMapping, Wi
         ];
     }
     public function headings(): array{
-        
+
         return [
             'Responsable',
             'Cargo',
             'Departamento O Dependencia ',
             'Placa Número',
+            'Bienes Nacionales',
             'Descripción',
             'Color',
             'Marca',
